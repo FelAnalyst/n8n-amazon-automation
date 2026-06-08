@@ -39,7 +39,7 @@ Amazon's SP-API doesn't return reports instantly — you request a report, then 
 - Amazon SP-API — data source
 
 ## Screenshots
-
+![WF-1 — [KPI] ACOS, TACOS, LTFS, Overhead Postgre](https://github.com/FelAnalyst/n8n-amazon-automation/blob/main/screenshots/WF-1.jpg)
 ![WF-2 — Report sync workflow](screenshots/wf-reports-sync.png)
 ![WF-3 — Shipments ingest workflow](screenshots/wf-shipments.png)
 
