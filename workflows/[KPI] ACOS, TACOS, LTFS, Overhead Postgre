@@ -1,0 +1,2209 @@
+{
+  "name": "[KPI] ACOS, TACOS, LTFS, Overhead Postgre",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "Збираю АКОС, ТАКОС, LTFS, OVERHEAD SPEND і групую по категорії товару",
+        "height": 880,
+        "width": 420
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        80,
+        2032
+      ],
+      "id": "c9f54ade-b2aa-4133-b3b9-b189437dc496",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 3 3,20 * *"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        208,
+        1712
+      ],
+      "id": "7e1d1787-ac8a-4018-8ef7-e6ebc29bf89a",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "numberInputs": 4
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        864,
+        2304
+      ],
+      "id": "ee6fe677-a420-4575-b006-a978d905b542",
+      "name": "Merge3"
+    },
+    {
+      "parameters": {
+        "numberInputs": 4
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        -576,
+        2304
+      ],
+      "id": "95107c4e-7655-4622-a01e-1ef8a6030feb",
+      "name": "Merge4"
+    },
+    {
+      "parameters": {
+        "numberInputs": 8
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        832,
+        608
+      ],
+      "id": "e37c21e2-6740-440b-a14b-b94e632d9d0f",
+      "name": "Merge6"
+    },
+    {
+      "parameters": {
+        "numberInputs": 4
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        -640,
+        1184
+      ],
+      "id": "7663a682-17bf-4e3c-9e5f-2dc9c7ca6fbf",
+      "name": "Merge8"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "06d9683c-a62b-439d-af6e-52542837144b",
+              "name": "month",
+              "value": "={{ DateTime.now().minus({ months: 1 }).month }}",
+              "type": "string"
+            },
+            {
+              "id": "8ed5264b-3d87-4380-95c8-e1e9748cdbc9",
+              "name": "year",
+              "value": "={{ DateTime.now().minus({ months: 1 }).year }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        432,
+        1712
+      ],
+      "id": "6a4bc955-57c1-433f-9b92-0735db7654ca",
+      "name": "налаштування"
+    },
+    {
+      "parameters": {
+        "content": "Збираю АКОС, ТАКОС, LTFS, OVERHEAD SPEND за місяць і групую по ppc_id",
+        "height": 880,
+        "width": 420
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1376,
+        2016
+      ],
+      "id": "823d292d-200a-4e0b-9e50-d2b89d5b9252",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "Збираю АКОС, ТАКОС, LTFS, OVERHEAD SPEND за місяць і групую по товару",
+        "height": 900,
+        "width": 460
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1408,
+        912
+      ],
+      "id": "2925b505-ce71-4a15-9cf4-8455336790d5",
+      "name": "Sticky Note9"
+    },
+    {
+      "parameters": {
+        "content": "Канада",
+        "height": 1632,
+        "width": 512,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "5022c50b-261e-4367-bba7-329895208809",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6bf9e155-de2e-491e-bf69-231fbc8f82cc",
+              "name": "value",
+              "value": "={{ $json.acos_percentage }}",
+              "type": "number"
+            },
+            {
+              "id": "60342033-8c20-4aa4-bfe9-3ebd0a7929e9",
+              "name": "month",
+              "value": "={{ $('налаштування').item.json.month }}",
+              "type": "string"
+            },
+            {
+              "id": "4dad00d8-21ca-495a-b8c7-a100ba56c726",
+              "name": "kpi_id",
+              "value": "1",
+              "type": "string"
+            },
+            {
+              "id": "ad0b5b49-7e30-49a8-8469-c4a331a88d4b",
+              "name": "year",
+              "value": "={{ $('налаштування').item.json.year }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1088,
+        1024
+      ],
+      "id": "71a87466-f7da-4e45-8f20-eb8cc271ff79",
+      "name": "Вибираю потрібні рядки для АКОС і додаю kpi_id по товару"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b88bc553-42d0-46dc-bcad-13313d664987",
+              "name": "value",
+              "value": "={{ $json.acos }}",
+              "type": "string"
+            },
+            {
+              "id": "1a95a8e4-89d7-4119-b43a-6441756e0d5b",
+              "name": "kpi_id",
+              "value": "1",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1120,
+        2112
+      ],
+      "id": "2b05a0d8-ba9b-4669-ac80-42e589e30c5b",
+      "name": "Вибираю потрібні рядки для АКОС і додаю kpi_id по ppc_id"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6bf9e155-de2e-491e-bf69-231fbc8f82cc",
+              "name": "value",
+              "value": "={{ $json.acos_percentage }}",
+              "type": "number"
+            },
+            {
+              "id": "60342033-8c20-4aa4-bfe9-3ebd0a7929e9",
+              "name": "month",
+              "value": "={{ $('налаштування').item.json.month }}",
+              "type": "string"
+            },
+            {
+              "id": "4dad00d8-21ca-495a-b8c7-a100ba56c726",
+              "name": "kpi_id",
+              "value": "1",
+              "type": "string"
+            },
+            {
+              "id": "ad0b5b49-7e30-49a8-8469-c4a331a88d4b",
+              "name": "year",
+              "value": "={{ $('налаштування').item.json.year }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "include": "except",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        352,
+        2128
+      ],
+      "id": "ce44d532-a4af-4c11-a31c-58e52abc9c37",
+      "name": "Вибираю потрібні рядки для АКОС і додаю kpi_id по категорії"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6bf9e155-de2e-491e-bf69-231fbc8f82cc",
+              "name": "value",
+              "value": "={{ $json.acos_percentage }}",
+              "type": "number"
+            },
+            {
+              "id": "60342033-8c20-4aa4-bfe9-3ebd0a7929e9",
+              "name": "month",
+              "value": "={{ $('налаштування').item.json.month }}",
+              "type": "string"
+            },
+            {
+              "id": "4dad00d8-21ca-495a-b8c7-a100ba56c726",
+              "name": "kpi_id",
+              "value": "1",
+              "type": "string"
+            },
+            {
+              "id": "5e52f827-ddb2-4094-9204-0e40dc25d559",
+              "name": "marketplace_id",
+              "value": "=2",
+              "type": "string"
+            },
+            {
+              "id": "efe5d04d-32fd-415f-91cc-a3ad8244986c",
+              "name": "year",
+              "value": "={{ $('налаштування').item.json.year }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        320,
+        768
+      ],
+      "id": "865a9407-c8f9-404e-9852-171cf6fea52d",
+      "name": "Вибираю потрібні рядки для АКОС і додаю kpi_id для Канади"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6bf9e155-de2e-491e-bf69-231fbc8f82cc",
+              "name": "value",
+              "value": "={{ $json.acos_percentage }}",
+              "type": "number"
+            },
+            {
+              "id": "60342033-8c20-4aa4-bfe9-3ebd0a7929e9",
+              "name": "month",
+              "value": "={{ $('налаштування').item.json.month }}",
+              "type": "string"
+            },
+            {
+              "id": "4dad00d8-21ca-495a-b8c7-a100ba56c726",
+              "name": "kpi_id",
+              "value": "1",
+              "type": "string"
+            },
+            {
+              "id": "5e52f827-ddb2-4094-9204-0e40dc25d559",
+              "name": "marketplace_id",
+              "value": "=1",
+              "type": "string"
+            },
+            {
+              "id": "efe5d04d-32fd-415f-91cc-a3ad8244986c",
+              "name": "year",
+              "value": "={{ $('налаштування').item.json.year }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        320,
+        48
+      ],
+      "id": "3e99379c-681c-45f2-8cb6-bfc3727ed872",
+      "name": "Вибираю потрібні рядки для АКОС і додаю kpi_id для США"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6bf9e155-de2e-491e-bf69-231fbc8f82cc",
+              "name": "value",
+              "value": "={{ $json.acos_percentage }}",
+              "type": "number"
+            },
+            {
+              "id": "60342033-8c20-4aa4-bfe9-3ebd0a7929e9",
+              "name": "month",
+              "value": "={{ $('налаштування').item.json.month }}",
+              "type": "string"
+            },
+            {
+              "id": "4dad00d8-21ca-495a-b8c7-a100ba56c726",
+              "name": "kpi_id",
+              "value": "2",
+              "type": "string"
+            },
+            {
+              "id": "5e52f827-ddb2-4094-9204-0e40dc25d559",
+              "name": "marketplace_id",
+              "value": "=1",
+              "type": "string"
+            },
+            {
+              "id": "efe5d04d-32fd-415f-91cc-a3ad8244986c",
+              "name": "year",
+              "value": "={{ $('налаштування').item.json.year }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        320,
+        224
+      ],
+      "id": "5d0552f5-e843-4958-991c-f872c65ca22a",
+      "name": "Вибираю потрібні рядки для ТАКОС і додаю kpi_id для США"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6bf9e155-de2e-491e-bf69-231fbc8f82cc",
+              "name": "value",
+              "value": "={{ $json.acos_percentage }}",
+              "type": "number"
+            },
+            {
+              "id": "60342033-8c20-4aa4-bfe9-3ebd0a7929e9",
+              "name": "month",
+              "value": "={{ $('налаштування').item.json.month }}",
+              "type": "string"
+            },
+            {
+              "id": "4dad00d8-21ca-495a-b8c7-a100ba56c726",
+              "name": "kpi_id",
+              "value": "2",
+              "type": "string"
+            },
+            {
+              "id": "ad0b5b49-7e30-49a8-8469-c4a331a88d4b",
+              "name": "year",
+              "value": "={{ $('налаштування').item.json.year }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1088,
+        1216
+      ],
+      "id": "c0014f9b-0360-43ef-aea0-eaedeaf0a94e",
+      "name": "Вибираю потрібні рядки для ТАКОС і додаю kpi_id по товару"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "76614619-ec8b-4f57-b0f0-1f2e1d63dcd0",
+              "name": "value",
+              "value": "={{ $json.tacos }}",
+              "type": "string"
+            },
+            {
+              "id": "300bf421-8c28-4b88-ab68-ab057ca6fd40",
+              "name": "kpi_id",
+              "value": "2",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1120,
+        2304
+      ],
+      "id": "3f396cd3-bb94-49f7-8401-82ef35ccb221",
+      "name": "Вибираю потрібні рядки для ТАКОС і додаю kpi_id по ppc_id"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6bf9e155-de2e-491e-bf69-231fbc8f82cc",
+              "name": "value",
+              "value": "={{ $json.tacos_percentage }}",
+              "type": "number"
+            },
+            {
+              "id": "60342033-8c20-4aa4-bfe9-3ebd0a7929e9",
+              "name": "month",
+              "value": "={{ $('налаштування').item.json.month }}",
+              "type": "string"
+            },
+            {
+              "id": "4dad00d8-21ca-495a-b8c7-a100ba56c726",
+              "name": "kpi_id",
+              "value": "2",
+              "type": "string"
+            },
+            {
+              "id": "ad0b5b49-7e30-49a8-8469-c4a331a88d4b",
+              "name": "year",
+              "value": "={{ $('налаштування').item.json.year }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "include": "except",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        352,
+        2304
+      ],
+      "id": "8da8d911-876a-479e-90d5-1ca19b4722fc",
+      "name": "Вибираю потрібні рядки для ТАКОС і додаю kpi_id по категорії"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6bf9e155-de2e-491e-bf69-231fbc8f82cc",
+              "name": "value",
+              "value": "={{ $json.acos_percentage }}",
+              "type": "number"
+            },
+            {
+              "id": "60342033-8c20-4aa4-bfe9-3ebd0a7929e9",
+              "name": "month",
+              "value": "={{ $('налаштування').item.json.month }}",
+              "type": "string"
+            },
+            {
+              "id": "4dad00d8-21ca-495a-b8c7-a100ba56c726",
+              "name": "kpi_id",
+              "value": "2",
+              "type": "string"
+            },
+            {
+              "id": "5e52f827-ddb2-4094-9204-0e40dc25d559",
+              "name": "marketplace_id",
+              "value": "=2",
+              "type": "string"
+            },
+            {
+              "id": "efe5d04d-32fd-415f-91cc-a3ad8244986c",
+              "name": "year",
+              "value": "={{ $('налаштування').item.json.year }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        320,
+        976
+      ],
+      "id": "6c421528-9a0b-450b-bb6c-7e831319ee2f",
+      "name": "Вибираю потрібні рядки для ТАКОС і додаю kpi_id для Канади"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6bf9e155-de2e-491e-bf69-231fbc8f82cc",
+              "name": "value",
+              "value": "={{ $json.total_amount_charged }}",
+              "type": "number"
+            },
+            {
+              "id": "60342033-8c20-4aa4-bfe9-3ebd0a7929e9",
+              "name": "month",
+              "value": "={{ $('налаштування').item.json.month }}",
+              "type": "string"
+            },
+            {
+              "id": "4dad00d8-21ca-495a-b8c7-a100ba56c726",
+              "name": "kpi_id",
+              "value": "3",
+              "type": "string"
+            },
+            {
+              "id": "5e52f827-ddb2-4094-9204-0e40dc25d559",
+              "name": "marketplace_id",
+              "value": "=1",
+              "type": "string"
+            },
+            {
+              "id": "efe5d04d-32fd-415f-91cc-a3ad8244986c",
+              "name": "year",
+              "value": "={{ $('налаштування').item.json.year }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        320,
+        416
+      ],
+      "id": "66b21b68-79ea-4a95-81a9-4579a023e2ce",
+      "name": "Вибираю потрібні рядки для LTFS і додаю kpi_id для США"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6bf9e155-de2e-491e-bf69-231fbc8f82cc",
+              "name": "value",
+              "value": "={{ $json.total_amount_charged }}",
+              "type": "number"
+            },
+            {
+              "id": "60342033-8c20-4aa4-bfe9-3ebd0a7929e9",
+              "name": "month",
+              "value": "={{ $('налаштування').item.json.month }}",
+              "type": "string"
+            },
+            {
+              "id": "4dad00d8-21ca-495a-b8c7-a100ba56c726",
+              "name": "kpi_id",
+              "value": "3",
+              "type": "string"
+            },
+            {
+              "id": "5e52f827-ddb2-4094-9204-0e40dc25d559",
+              "name": "marketplace_id",
+              "value": "=2",
+              "type": "string"
+            },
+            {
+              "id": "efe5d04d-32fd-415f-91cc-a3ad8244986c",
+              "name": "year",
+              "value": "={{ $('налаштування').item.json.year }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        320,
+        1152
+      ],
+      "id": "2dd6891f-4b4a-4f80-9587-dcd981dfa128",
+      "name": "Вибираю потрібні рядки для LTFS і додаю kpi_id для Канади"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6bf9e155-de2e-491e-bf69-231fbc8f82cc",
+              "name": "value",
+              "value": "={{ $json.total_amount_charged }}",
+              "type": "number"
+            },
+            {
+              "id": "60342033-8c20-4aa4-bfe9-3ebd0a7929e9",
+              "name": "month",
+              "value": "={{ $('налаштування').item.json.month }}",
+              "type": "string"
+            },
+            {
+              "id": "4dad00d8-21ca-495a-b8c7-a100ba56c726",
+              "name": "kpi_id",
+              "value": "3",
+              "type": "string"
+            },
+            {
+              "id": "ad0b5b49-7e30-49a8-8469-c4a331a88d4b",
+              "name": "year",
+              "value": "={{ $('налаштування').item.json.year }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "include": "except",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        352,
+        2512
+      ],
+      "id": "ea5bd3d6-a7c8-477b-8e11-a60f7b980a39",
+      "name": "Вибираю потрібні рядки для LTFS і додаю kpi_id по категорії"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b43d75ab-0ac5-44c0-881e-fa7d90e7d0e4",
+              "name": "value",
+              "value": "={{ $json.value }}",
+              "type": "string"
+            },
+            {
+              "id": "40e3399c-4a2b-427b-ad5a-bc19461a2c97",
+              "name": "kpi_id",
+              "value": "3",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1120,
+        2512
+      ],
+      "id": "5149d0e8-ccba-4685-8d55-0693d91de07b",
+      "name": "Вибираю потрібні рядки для LTFS і додаю kpi_id по ppc_id"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6bf9e155-de2e-491e-bf69-231fbc8f82cc",
+              "name": "value",
+              "value": "={{ $json.total_amount_charged }}",
+              "type": "number"
+            },
+            {
+              "id": "60342033-8c20-4aa4-bfe9-3ebd0a7929e9",
+              "name": "month",
+              "value": "={{ $('налаштування').item.json.month }}",
+              "type": "string"
+            },
+            {
+              "id": "4dad00d8-21ca-495a-b8c7-a100ba56c726",
+              "name": "kpi_id",
+              "value": "3",
+              "type": "string"
+            },
+            {
+              "id": "ad0b5b49-7e30-49a8-8469-c4a331a88d4b",
+              "name": "year",
+              "value": "={{ $('налаштування').item.json.year }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1088,
+        1408
+      ],
+      "id": "0353a030-78b4-4e90-a019-d6c2e6665bad",
+      "name": "Вибираю потрібні рядки для LTFS і додаю kpi_id по товару"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6bf9e155-de2e-491e-bf69-231fbc8f82cc",
+              "name": "value",
+              "value": "={{ $json.total_overhead_spend }}",
+              "type": "number"
+            },
+            {
+              "id": "60342033-8c20-4aa4-bfe9-3ebd0a7929e9",
+              "name": "month",
+              "value": "={{ $('налаштування').item.json.month }}",
+              "type": "string"
+            },
+            {
+              "id": "4dad00d8-21ca-495a-b8c7-a100ba56c726",
+              "name": "kpi_id",
+              "value": "4",
+              "type": "string"
+            },
+            {
+              "id": "5e52f827-ddb2-4094-9204-0e40dc25d559",
+              "name": "marketplace_id",
+              "value": "=1",
+              "type": "string"
+            },
+            {
+              "id": "efe5d04d-32fd-415f-91cc-a3ad8244986c",
+              "name": "year",
+              "value": "={{ $('налаштування').item.json.year }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        320,
+        576
+      ],
+      "id": "6c0b85d4-8460-4a83-90c4-65d96b656139",
+      "name": "Вибираю потрібні рядки для Overhead spend і додаю kpi_id для США"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6bf9e155-de2e-491e-bf69-231fbc8f82cc",
+              "name": "value",
+              "value": "={{ $json.total_overhead_spend }}",
+              "type": "number"
+            },
+            {
+              "id": "60342033-8c20-4aa4-bfe9-3ebd0a7929e9",
+              "name": "month",
+              "value": "={{ $('налаштування').item.json.month }}",
+              "type": "string"
+            },
+            {
+              "id": "4dad00d8-21ca-495a-b8c7-a100ba56c726",
+              "name": "kpi_id",
+              "value": "4",
+              "type": "string"
+            },
+            {
+              "id": "5e52f827-ddb2-4094-9204-0e40dc25d559",
+              "name": "marketplace_id",
+              "value": "=2",
+              "type": "string"
+            },
+            {
+              "id": "efe5d04d-32fd-415f-91cc-a3ad8244986c",
+              "name": "year",
+              "value": "={{ $('налаштування').item.json.year }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        320,
+        1328
+      ],
+      "id": "1ccd6bca-5a08-4ba1-8fda-b9174d82c50f",
+      "name": "Вибираю потрібні рядки для Overhead spend і додаю kpi_id для Канади"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e4f81c11-eab5-4306-b44f-91bf79d881ca",
+              "name": "value",
+              "value": "={{ $json.total_overhead_spend }}",
+              "type": "string"
+            },
+            {
+              "id": "836f5e03-bbbe-408f-812f-bc72e5fbc316",
+              "name": "kpi_id",
+              "value": "4",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1120,
+        2688
+      ],
+      "id": "65622f38-be73-4961-bc76-d5e626865818",
+      "name": "Вибираю потрібні рядки для Overhead spend і додаю kpi_id по ppc_id"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6bf9e155-de2e-491e-bf69-231fbc8f82cc",
+              "name": "value",
+              "value": "={{ $json.total_overhead_spend }}",
+              "type": "number"
+            },
+            {
+              "id": "60342033-8c20-4aa4-bfe9-3ebd0a7929e9",
+              "name": "month",
+              "value": "={{ $('налаштування').item.json.month }}",
+              "type": "string"
+            },
+            {
+              "id": "4dad00d8-21ca-495a-b8c7-a100ba56c726",
+              "name": "kpi_id",
+              "value": "4",
+              "type": "string"
+            },
+            {
+              "id": "ad0b5b49-7e30-49a8-8469-c4a331a88d4b",
+              "name": "year",
+              "value": "={{ $('налаштування').item.json.year }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1088,
+        1616
+      ],
+      "id": "1ab6876c-7107-4447-b90a-3601d9fdd8d9",
+      "name": "Вибираю потрібні рядки для Overhead spend і додаю kpi_id по товару"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0f8d7933-7021-4c45-9f37-1232983e0551",
+              "name": "marketplace_name",
+              "value": "={{ $if($json.marketplace_id==1,\"US\",\"CA\")}}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -448,
+        1216
+      ],
+      "id": "43c1e90e-9dbf-47f4-bdd2-4504ce6a67cc",
+      "name": "додаю markeplace_name для product_monthly_kpi"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0f8d7933-7021-4c45-9f37-1232983e0551",
+              "name": "marketplace_name",
+              "value": "={{ $if($json.marketplace_id==1,\"US\",\"CA\")}}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1024,
+        704
+      ],
+      "id": "d31bc1ac-9580-415b-b555-d3234137ef98",
+      "name": "додаю markeplace_name для all_products_monthly_kpi"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0f8d7933-7021-4c45-9f37-1232983e0551",
+              "name": "marketplace_name",
+              "value": "={{ $if($json.marketplace_id==1,\"US\",\"CA\")}}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1072,
+        2336
+      ],
+      "id": "609b73e1-41e5-45d7-8949-6cc830c5f7f5",
+      "name": "додаю markeplace_name для product_group_monthly_kpi"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0f8d7933-7021-4c45-9f37-1232983e0551",
+              "name": "marketplace_name",
+              "value": "={{ $if($json.marketplace_id==1,\"US\",\"CA\")}}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -400,
+        2336
+      ],
+      "id": "ead8830a-8c13-4a10-ac30-002ee27402eb",
+      "name": "додаю markeplace_name для ppc_group_monthly_kpi"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO kpi.all_products_monthly_kpi ( \n  kpi_id,\n  month,\n  year,\n  value,\n  marketplace_id,\n  marketplace_name\n)\nVALUES (\n  {{ $json.kpi_id }},\n  {{ $json.month }},\n  {{ $json.year }},\n  {{ $json.value }},\n  {{ $json.marketplace_id }},\n  '{{ $json.marketplace_name }}'\n)\nON CONFLICT ON CONSTRAINT pk_all_products_monthly_kpi\nDO UPDATE SET\n  value = EXCLUDED.value,\n  marketplace_name = EXCLUDED.marketplace_name;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1072,
+        944
+      ],
+      "id": "6e88af24-3d5a-4e56-bd88-d4d859efb28c",
+      "name": "Postgres, записую в all_products_monthly_kpi",
+      "credentials": {
+        "postgres": {
+          "id": "YMbDdiDzQYbv6xCL",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO kpi.product_group_monthly_kpi ( \n  kpi_id,\n  product_group,\n  marketplace_id,\n  marketplace_name,\n  month,\n  year,\n  value\n)\nVALUES (\n  {{ $json.kpi_id }},\n  '{{ $json.category }}'::product_group_monthly_kpi_product_group,\n  {{ $json.marketplace_id }},\n  '{{ $json.marketplace_name }}',\n  {{ $json.month }},\n  {{ $json.year }},\n  {{ $json.value }}\n)\nON CONFLICT ON CONSTRAINT pk_product_group_monthly_kpi\nDO UPDATE SET\n  value = EXCLUDED.value,\n  marketplace_name = EXCLUDED.marketplace_name;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1120,
+        2576
+      ],
+      "id": "f054f57e-dc65-41d8-9b4b-44ec34ef82bf",
+      "name": "Postgres, записую в product_group_monthly_kpi",
+      "credentials": {
+        "postgres": {
+          "id": "YMbDdiDzQYbv6xCL",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO kpi.ppc_group_monthly_kpi ( \n  kpi_id,\n  ppc_id,\n  marketplace_id,\n  marketplace_name,\n  month,\n  year,\n  value\n)\nVALUES (\n  {{ $json.kpi_id }},\n  {{ $json.ppc_id }},\n  {{ $json.marketplace_id }},\n  '{{ $json.marketplace_name }}',\n  {{ $('налаштування').item.json.month }},\n  {{ $('налаштування').item.json.year }},\n  {{ $json.value }}\n)\nON CONFLICT ON CONSTRAINT pk_ppc_group_monthly_kpi\nDO UPDATE SET\n  value = EXCLUDED.value,\n  marketplace_name = EXCLUDED.marketplace_name;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -336,
+        2592
+      ],
+      "id": "e076e84b-700b-45eb-b557-5fe9f6a9b54e",
+      "name": "Postgres, записую в ppc_group_monthly_kpi",
+      "credentials": {
+        "postgres": {
+          "id": "YMbDdiDzQYbv6xCL",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO kpi.product_monthly_kpi ( \n  kpi_id,\n  product_id,\n  marketplace_id,\n  marketplace_name,\n  month,\n  year,\n  value\n)\nVALUES (\n  {{ $json.kpi_id }},\n  {{ $json.product_id }},\n  {{ $json.marketplace_id }},\n  '{{ $json.marketplace_name }}',\n  {{ $json.month }},\n  {{ $json.year }},\n  {{ $json.value }}\n)\nON CONFLICT ON CONSTRAINT pk_product_monthly_kpi\nDO UPDATE SET\n  value = EXCLUDED.value,\n  marketplace_name = EXCLUDED.marketplace_name;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -384,
+        1424
+      ],
+      "id": "dd91b484-19a3-4deb-a6c2-7c1f3681b209",
+      "name": "Postgres, записую в product_monthly_kpi",
+      "credentials": {
+        "postgres": {
+          "id": "YMbDdiDzQYbv6xCL",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n  SUM(COALESCE(sales7d, sales)) as total_sales,\n  SUM(cost) as total_cost,\n  ROUND((SUM(cost) / NULLIF(SUM(COALESCE(sales7d, sales)), 0)) * 100, 2) as acos_percentage\nFROM (\n  SELECT \n    sales7d,\n    NULL as sales,\n    cost,\n    date\n  FROM \"ads-api-reports\".ads_sp_campaigns_daily_reports\n  WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n    AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n    AND marketplace_id = 1\n  \n  UNION ALL\n  \n  SELECT \n    NULL as sales7d,\n    sales,\n    cost,\n    date\n  FROM \"ads-api-reports\".ads_sd_campaigns_reports\n  WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n    AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n    AND marketplace_id = 1\n  \n  UNION ALL\n  \n  SELECT \n    NULL as sales7d,\n    sales,\n    cost,\n    date\n  FROM \"ads-api-reports\".ads_sb_campaign_reports\n  WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n    AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n    AND marketplace_id = 1\n) combined",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        112,
+        48
+      ],
+      "id": "8fbdcb3b-e17a-43b1-980c-1189f1f62ff0",
+      "name": "збираю місячний АКОС загальний USA",
+      "credentials": {
+        "postgres": {
+          "id": "YMbDdiDzQYbv6xCL",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n  ads_totals.total_cost,\n  sales_totals.total_sales,\n  ROUND((ads_totals.total_cost / NULLIF(sales_totals.total_sales, 0)) * 100, 2) as acos_percentage\nFROM (\n  SELECT \n    SUM(cost) as total_cost\n  FROM (\n    SELECT cost, date\n    FROM \"ads-api-reports\".ads_sp_campaigns_daily_reports\n    WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n      AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n      AND marketplace_id = 1\n    \n    UNION ALL\n    \n    SELECT cost, date\n    FROM \"ads-api-reports\".ads_sd_campaigns_reports\n    WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n      AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n      AND marketplace_id = 1\n    \n    UNION ALL\n    \n    SELECT cost, date\n    FROM \"ads-api-reports\".ads_sb_campaign_reports\n    WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n      AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n      AND marketplace_id = 1\n  ) combined_ads\n) ads_totals\nCROSS JOIN (\n  SELECT \n    SUM(total_sales_amount) as total_sales\n  FROM \"sp-api-reports\".product_sales\n  WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n    AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n    AND marketplace_id = 1\n) sales_totals",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        112,
+        224
+      ],
+      "id": "b0bff4f6-2154-40b6-b994-2db1384f467a",
+      "name": "збираю місячний ТАКОС загальний USA1",
+      "credentials": {
+        "postgres": {
+          "id": "YMbDdiDzQYbv6xCL",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n  ROUND(SUM(amount_charged), 2) as total_amount_charged\nFROM \"sp-api-reports\".longterm_storage_fees_charges_reports\nWHERE year_of_charge = {{ $json.year }}\n  AND month_of_charge = {{ $json.month }}\n  AND marketplace_id = 1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        112,
+        416
+      ],
+      "id": "c69cafc1-6a6d-44f8-8e0c-96ec1246d02a",
+      "name": "збираю місячний LTFS загальний USA1",
+      "credentials": {
+        "postgres": {
+          "id": "YMbDdiDzQYbv6xCL",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "WITH \ntarget_date AS (\n    SELECT (DATE_TRUNC('month', MAKE_DATE({{ $json.year }}::int, {{ $json.month }}::int, 1)) + INTERVAL '1 month - 1 day')::DATE AS target_date\n),\nlatest_inventory_date AS (\n    SELECT MAX(snapshot_date) AS max_date \n    FROM \"sp-api-reports\".fba_inventory_reports_us\n    WHERE snapshot_date <= (SELECT target_date FROM target_date)\n),\nprimary_fnsku_data AS (\n    SELECT \n        f.asin,\n        f.fnsku,\n        ROW_NUMBER() OVER (PARTITION BY f.asin ORDER BY f.available DESC, f.fnsku) AS rn\n    FROM \"sp-api-reports\".fba_inventory_reports_us f\n    CROSS JOIN latest_inventory_date ld\n    WHERE f.snapshot_date = ld.max_date\n),\nprimary_fnsku_only AS (\n    SELECT asin, fnsku AS primary_fnsku\n    FROM primary_fnsku_data\n    WHERE rn = 1\n),\nmax_storage_month AS (\n    SELECT MAX(month_of_charge) AS max_month\n    FROM \"sp-api-reports\".fba_storage_fees_reports\n    WHERE year_of_charge = {{ $json.year }}\n        AND marketplace_id = 1\n        AND month_of_charge <= {{ $json.month }}\n),\nstorage_fee_data AS (\n    SELECT \n        sfr.fnsku,\n        CASE \n            WHEN sfr.average_quantity_on_hand > 0 \n            THEN sfr.estimated_monthly_storage_fee / sfr.average_quantity_on_hand\n            ELSE NULL \n        END AS fee_per_unit,\n        ROW_NUMBER() OVER (PARTITION BY sfr.fnsku ORDER BY sfr.fulfillment_center) AS rn\n    FROM \"sp-api-reports\".fba_storage_fees_reports sfr\n    CROSS JOIN max_storage_month msm\n    WHERE sfr.year_of_charge = {{ $json.year }}\n        AND sfr.marketplace_id = 1\n        AND sfr.month_of_charge = msm.max_month\n),\nfirst_storage_record AS (\n    SELECT fnsku, fee_per_unit\n    FROM storage_fee_data\n    WHERE rn = 1\n),\nmax_sales_date AS (\n    SELECT MAX(date) AS max_date\n    FROM \"sp-api-reports\".product_sales\n    WHERE marketplace_id = 1\n        AND date <= (SELECT target_date FROM target_date)\n)\nSELECT \n    ROUND(SUM(ROUND(COALESCE(\n        FLOOR(GREATEST(COALESCE(fba_qty.amazon_fba_qty, 0) - COALESCE(sales_forecast.forecast_75d, 0), 0)) * \n        COALESCE(fsr.fee_per_unit, 0), 0\n    ), 2)), 2) AS total_overhead_spend\nFROM (\n    SELECT DISTINCT asin \n    FROM \"sp-api-reports\".fba_inventory_reports_us\n    WHERE snapshot_date = (SELECT max_date FROM latest_inventory_date)\n) fir\nLEFT JOIN reference.products p ON fir.asin = p.asin\nLEFT JOIN reference.marketplace_products mp ON p.id = mp.product_id AND mp.marketplace_id = 1\nLEFT JOIN (\n    SELECT \n        asin,\n        SUM(available) AS amazon_fba_qty\n    FROM \"sp-api-reports\".fba_inventory_reports_us\n    WHERE snapshot_date = (SELECT max_date FROM latest_inventory_date)\n        AND sku NOT LIKE '%amzn%'\n        AND sku NOT LIKE '%Amazon%'\n    GROUP BY asin\n) fba_qty ON fir.asin = fba_qty.asin\nLEFT JOIN (\n    SELECT \n        p2.asin,\n        (SUM(ps.unit_count) / 30.0) * 75 AS forecast_75d\n    FROM \"sp-api-reports\".product_sales ps\n    JOIN reference.products p2 ON ps.product_id = p2.id\n    CROSS JOIN max_sales_date msd\n    WHERE ps.marketplace_id = 1\n        AND ps.date <= msd.max_date\n        AND ps.date > (msd.max_date - INTERVAL '30 days')\n    GROUP BY p2.asin\n) sales_forecast ON fir.asin = sales_forecast.asin\nLEFT JOIN primary_fnsku_only pf ON fir.asin = pf.asin\nLEFT JOIN first_storage_record fsr ON pf.primary_fnsku = fsr.fnsku;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        112,
+        576
+      ],
+      "id": "9c5cfd03-6f73-4e5f-aea1-ad913535f96e",
+      "name": "збираю місячний OVERHEAD SPEND загальний USA1",
+      "credentials": {
+        "postgres": {
+          "id": "YMbDdiDzQYbv6xCL",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n  SUM(COALESCE(sales7d, sales)) as total_sales,\n  SUM(cost) as total_cost,\n  ROUND((SUM(cost) / NULLIF(SUM(COALESCE(sales7d, sales)), 0)) * 100, 2) as acos_percentage\nFROM (\n  SELECT \n    sales7d,\n    NULL as sales,\n    cost,\n    date\n  FROM \"ads-api-reports\".ads_sp_campaigns_daily_reports\n  WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n    AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n    AND marketplace_id = 2\n  \n  UNION ALL\n  \n  SELECT \n    NULL as sales7d,\n    sales,\n    cost,\n    date\n  FROM \"ads-api-reports\".ads_sd_campaigns_reports\n  WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n    AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n    AND marketplace_id = 2\n  \n  UNION ALL\n  \n  SELECT \n    NULL as sales7d,\n    sales,\n    cost,\n    date\n  FROM \"ads-api-reports\".ads_sb_campaign_reports\n  WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n    AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n    AND marketplace_id = 2\n) combined",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        112,
+        768
+      ],
+      "id": "2a5653f8-4741-49c3-b757-b85b08f8424a",
+      "name": "збираю місячний АКОС загальний CA1",
+      "credentials": {
+        "postgres": {
+          "id": "YMbDdiDzQYbv6xCL",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n  ads_totals.total_cost,\n  sales_totals.total_sales,\n  ROUND((ads_totals.total_cost / NULLIF(sales_totals.total_sales, 0)) * 100, 2) as acos_percentage\nFROM (\n  SELECT \n    SUM(cost) as total_cost\n  FROM (\n    SELECT cost, date\n    FROM \"ads-api-reports\".ads_sp_campaigns_daily_reports\n    WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n      AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n      AND marketplace_id = 2\n    \n    UNION ALL\n    \n    SELECT cost, date\n    FROM \"ads-api-reports\".ads_sd_campaigns_reports\n    WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n      AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n      AND marketplace_id = 2\n    \n    UNION ALL\n    \n    SELECT cost, date\n    FROM \"ads-api-reports\".ads_sb_campaign_reports\n    WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n      AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n      AND marketplace_id = 2\n  ) combined_ads\n) ads_totals\nCROSS JOIN (\n  SELECT \n    SUM(total_sales_amount) as total_sales\n  FROM \"sp-api-reports\".product_sales\n  WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n    AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n    AND marketplace_id = 2\n) sales_totals",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        112,
+        976
+      ],
+      "id": "7ca75123-325d-4ed0-9338-6ae5627f8dc0",
+      "name": "збираю місячний ТАКОС загальний CA1",
+      "credentials": {
+        "postgres": {
+          "id": "YMbDdiDzQYbv6xCL",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n  ROUND(SUM(amount_charged), 2) as total_amount_charged\nFROM \"sp-api-reports\".longterm_storage_fees_charges_reports\nWHERE year_of_charge = {{ $json.year }}\n  AND month_of_charge = {{ $json.month }}\n  AND marketplace_id = 2",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        112,
+        1152
+      ],
+      "id": "5de4970e-5bd1-4c12-8c09-86118440d7a0",
+      "name": "збираю місячний LTFS загальний CA1",
+      "credentials": {
+        "postgres": {
+          "id": "YMbDdiDzQYbv6xCL",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "WITH \ntarget_date AS (\n    SELECT (DATE_TRUNC('month', MAKE_DATE({{ $json.year }}::int, {{ $json.month }}::int, 1)) + INTERVAL '1 month - 1 day')::DATE AS target_date\n),\nlatest_inventory_date AS (\n    SELECT MAX(report_date) AS max_date \n    FROM \"sp-api-reports\".multicountry_fba_inventory_reports\n    WHERE marketplace_id = 2\n        AND report_date <= (SELECT target_date FROM target_date)\n),\nprimary_fnsku_data AS (\n    SELECT \n        f.asin,\n        f.fnsku,\n        ROW_NUMBER() OVER (PARTITION BY f.asin ORDER BY f.quantity_for_local_fulfillment DESC, f.fnsku) AS rn\n    FROM \"sp-api-reports\".multicountry_fba_inventory_reports f\n    CROSS JOIN latest_inventory_date ld\n    WHERE f.report_date = ld.max_date\n        AND f.marketplace_id = 2\n),\nprimary_fnsku_only AS (\n    SELECT asin, fnsku AS primary_fnsku\n    FROM primary_fnsku_data\n    WHERE rn = 1\n),\nmax_storage_month AS (\n    SELECT MAX(month_of_charge) AS max_month\n    FROM \"sp-api-reports\".fba_storage_fees_reports\n    WHERE year_of_charge = {{ $json.year }}\n        AND marketplace_id = 2\n        AND month_of_charge <= {{ $json.month }}\n),\nstorage_fee_data AS (\n    SELECT \n        sfr.fnsku,\n        CASE \n            WHEN sfr.average_quantity_on_hand > 0 \n            THEN sfr.estimated_monthly_storage_fee / sfr.average_quantity_on_hand\n            ELSE NULL \n        END AS fee_per_unit,\n        ROW_NUMBER() OVER (PARTITION BY sfr.fnsku ORDER BY sfr.fulfillment_center) AS rn\n    FROM \"sp-api-reports\".fba_storage_fees_reports sfr\n    CROSS JOIN max_storage_month msm\n    WHERE sfr.year_of_charge = {{ $json.year }}\n        AND sfr.marketplace_id = 2\n        AND sfr.month_of_charge = msm.max_month\n),\nfirst_storage_record AS (\n    SELECT fnsku, fee_per_unit\n    FROM storage_fee_data\n    WHERE rn = 1\n),\nmax_sales_date AS (\n    SELECT MAX(date) AS max_date\n    FROM \"sp-api-reports\".product_sales\n    WHERE marketplace_id = 2\n        AND date <= (SELECT target_date FROM target_date)\n)\nSELECT \n    ROUND(SUM(ROUND(COALESCE(\n        FLOOR(GREATEST(COALESCE(fba_qty.amazon_fba_qty, 0) - COALESCE(sales_forecast.forecast_75d, 0), 0)) * \n        COALESCE(fsr.fee_per_unit, 0), 0\n    ), 2)), 2) AS total_overhead_spend\nFROM (\n    SELECT DISTINCT asin \n    FROM \"sp-api-reports\".multicountry_fba_inventory_reports\n    WHERE report_date = (SELECT max_date FROM latest_inventory_date)\n        AND marketplace_id = 2\n) fir\nLEFT JOIN reference.products p ON fir.asin = p.asin\nLEFT JOIN reference.marketplace_products mp ON p.id = mp.product_id AND mp.marketplace_id = 2\nLEFT JOIN (\n    SELECT \n        asin,\n        SUM(quantity_for_local_fulfillment) AS amazon_fba_qty\n    FROM \"sp-api-reports\".multicountry_fba_inventory_reports\n    WHERE report_date = (SELECT max_date FROM latest_inventory_date)\n        AND marketplace_id = 2\n        AND sku NOT LIKE '%amzn%'\n        AND sku NOT LIKE '%Amazon%'\n    GROUP BY asin\n) fba_qty ON fir.asin = fba_qty.asin\nLEFT JOIN (\n    SELECT \n        p2.asin,\n        (SUM(ps.unit_count) / 30.0) * 75 AS forecast_75d\n    FROM \"sp-api-reports\".product_sales ps\n    JOIN reference.products p2 ON ps.product_id = p2.id\n    CROSS JOIN max_sales_date msd\n    WHERE ps.marketplace_id = 2\n        AND ps.date <= msd.max_date\n        AND ps.date > (msd.max_date - INTERVAL '30 days')\n    GROUP BY p2.asin\n) sales_forecast ON fir.asin = sales_forecast.asin\nLEFT JOIN primary_fnsku_only pf ON fir.asin = pf.asin\nLEFT JOIN first_storage_record fsr ON pf.primary_fnsku = fsr.fnsku;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        112,
+        1328
+      ],
+      "id": "eb2aa851-63bd-4cd0-839a-a319b1797cbc",
+      "name": "збираю місячний OVERHEAD SPEND загальний CA1",
+      "credentials": {
+        "postgres": {
+          "id": "YMbDdiDzQYbv6xCL",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "WITH all_categories AS (\n    SELECT DISTINCT \n        cat.id AS category_id,\n        cat.name AS category,\n        m.marketplace_id\n    FROM reference.product_categories cat\n    CROSS JOIN (SELECT 1 AS marketplace_id UNION SELECT 2) m\n),\ncampaign_data AS (\n  SELECT \n    campaign_id,\n    marketplace_id,\n    sales7d,\n    NULL as sales,\n    cost\n  FROM \"ads-api-reports\".ads_sp_campaigns_daily_reports\n  WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n    AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n  \n  UNION ALL\n  \n  SELECT \n    campaign_id,\n    marketplace_id,\n    NULL as sales7d,\n    sales,\n    cost\n  FROM \"ads-api-reports\".ads_sd_campaigns_reports\n  WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n    AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n  \n  UNION ALL\n  \n  SELECT \n    campaign_id,\n    marketplace_id,\n    NULL as sales7d,\n    sales,\n    cost\n  FROM \"ads-api-reports\".ads_sb_campaign_reports\n  WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n    AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n)\nSELECT \n  ac.category,\n  ac.marketplace_id,\n  ROUND(COALESCE(SUM(COALESCE(cd.sales7d, cd.sales)), 0), 2) as total_sales,\n  ROUND(COALESCE(SUM(cd.cost), 0), 2) as total_cost,\n  CASE \n    WHEN COALESCE(SUM(COALESCE(cd.sales7d, cd.sales)), 0) = 0 THEN 0\n    ELSE ROUND((SUM(cd.cost) / SUM(COALESCE(cd.sales7d, cd.sales))) * 100, 2)\n  END as acos_percentage\nFROM all_categories ac\nLEFT JOIN reference.products p \n  ON ac.category_id = p.category_id\nLEFT JOIN \"ads-api-reports\".campaigns c \n  ON p.id = c.product_id \n  AND ac.marketplace_id = c.marketplace_id\nLEFT JOIN campaign_data cd \n  ON c.campaign_id = cd.campaign_id\n  AND ac.marketplace_id = cd.marketplace_id\nGROUP BY ac.category, ac.marketplace_id\nORDER BY ac.category, ac.marketplace_id;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        112,
+        2128
+      ],
+      "id": "f4c0b088-4194-4114-988a-5442cf2afee8",
+      "name": "збираю місячний АКОС по групі товару1",
+      "credentials": {
+        "postgres": {
+          "id": "YMbDdiDzQYbv6xCL",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "WITH all_categories AS (\n    SELECT DISTINCT \n        cat.id AS category_id,\n        cat.name AS category,\n        m.marketplace_id\n    FROM reference.product_categories cat\n    CROSS JOIN (SELECT 1 AS marketplace_id UNION SELECT 2) m\n),\ncampaign_costs AS (\n  SELECT campaign_id, marketplace_id, cost\n  FROM \"ads-api-reports\".ads_sp_campaigns_daily_reports\n  WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n    AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n  \n  UNION ALL\n  \n  SELECT campaign_id, marketplace_id, cost\n  FROM \"ads-api-reports\".ads_sd_campaigns_reports\n  WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n    AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n  \n  UNION ALL\n  \n  SELECT campaign_id, marketplace_id, cost\n  FROM \"ads-api-reports\".ads_sb_campaign_reports\n  WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n    AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n),\nproduct_sales_agg AS (\n  SELECT \n    p2.category_id,\n    ps.marketplace_id,\n    SUM(ps.total_sales_amount) as total_sales\n  FROM \"sp-api-reports\".product_sales ps\n  JOIN reference.products p2 ON ps.product_id = p2.id\n  WHERE EXTRACT(MONTH FROM ps.date) = {{ $json.month }}\n    AND EXTRACT(YEAR FROM ps.date) = {{ $json.year }}\n  GROUP BY p2.category_id, ps.marketplace_id\n)\nSELECT \n  ac.category,\n  ac.marketplace_id,\n  ROUND(COALESCE(ps_agg.total_sales, 0), 2) as total_sales,\n  ROUND(COALESCE(SUM(cc.cost), 0), 2) as total_cost,\n  CASE \n    WHEN COALESCE(ps_agg.total_sales, 0) = 0 THEN 0\n    ELSE ROUND((SUM(cc.cost) / ps_agg.total_sales) * 100, 2)\n  END as tacos_percentage\nFROM all_categories ac\nLEFT JOIN reference.products p \n  ON ac.category_id = p.category_id\nLEFT JOIN \"ads-api-reports\".campaigns c \n  ON p.id = c.product_id \n  AND ac.marketplace_id = c.marketplace_id\nLEFT JOIN campaign_costs cc \n  ON c.campaign_id = cc.campaign_id\n  AND ac.marketplace_id = cc.marketplace_id\nLEFT JOIN product_sales_agg ps_agg \n  ON ac.category_id = ps_agg.category_id\n  AND ac.marketplace_id = ps_agg.marketplace_id\nGROUP BY ac.category, ac.marketplace_id, ps_agg.total_sales\nORDER BY ac.category, ac.marketplace_id;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        112,
+        2304
+      ],
+      "id": "f4ee3131-4a2a-4bc2-bea9-f0f15cf20bb2",
+      "name": "збираю місячний TАКОС по групі товару USA1",
+      "credentials": {
+        "postgres": {
+          "id": "YMbDdiDzQYbv6xCL",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "WITH all_categories AS (\n    SELECT DISTINCT \n        cat.id AS category_id,\n        cat.name AS category,\n        m.marketplace_id\n    FROM reference.product_categories cat\n    CROSS JOIN (SELECT 1 AS marketplace_id UNION SELECT 2) m\n)\nSELECT \n    ac.category,\n    ac.marketplace_id,\n    ROUND(COALESCE(SUM(lsf.amount_charged), 0), 2) AS total_amount_charged\nFROM all_categories ac\nLEFT JOIN reference.products p \n    ON ac.category_id = p.category_id\nLEFT JOIN \"sp-api-reports\".longterm_storage_fees_charges_reports lsf \n    ON p.asin = lsf.asin\n    AND lsf.marketplace_id = ac.marketplace_id\n    AND lsf.month_of_charge = {{ $json.month }}\n    AND lsf.year_of_charge = {{ $json.year }}\nGROUP BY \n    ac.category,\n    ac.marketplace_id\nORDER BY \n    ac.category,\n    ac.marketplace_id;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        112,
+        2512
+      ],
+      "id": "49ccdd19-1984-4de0-9e76-5ce277b77a27",
+      "name": "збираю місячний LTFS по групі товару USA1",
+      "credentials": {
+        "postgres": {
+          "id": "YMbDdiDzQYbv6xCL",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "WITH \ntarget_date AS (\n    SELECT (DATE_TRUNC('month', MAKE_DATE({{ $json.year }}::int, {{ $json.month }}::int, 1)) + INTERVAL '1 month - 1 day')::DATE AS target_date\n),\nall_categories AS (\n    SELECT DISTINCT \n        cat.id AS category_id,\n        cat.name AS category,\n        mp.marketplace_id\n    FROM reference.product_categories cat\n    CROSS JOIN (SELECT 1 AS marketplace_id UNION SELECT 2) mp\n),\nbase_products AS (\n    SELECT \n        cat.name AS category,\n        p.category_id,\n        mp.product_id,\n        mp.marketplace_id,\n        p.asin\n    FROM reference.marketplace_products mp\n    JOIN reference.products p ON mp.product_id = p.id\n    JOIN reference.product_categories cat ON p.category_id = cat.id\n    WHERE mp.status_id IN (1, 4)\n        AND p.category_id IS NOT NULL\n),\n\n-- ===== MARKETPLACE_ID = 1 =====\nlatest_inventory_date_us AS (\n    SELECT MAX(snapshot_date) AS max_date \n    FROM \"sp-api-reports\".fba_inventory_reports_us\n    WHERE snapshot_date <= (SELECT target_date FROM target_date)\n),\nprimary_fnsku_us AS (\n    SELECT f.asin, f.fnsku AS primary_fnsku\n    FROM (\n        SELECT f.asin, f.fnsku,\n            ROW_NUMBER() OVER (PARTITION BY f.asin ORDER BY f.available DESC, f.fnsku) AS rn\n        FROM \"sp-api-reports\".fba_inventory_reports_us f\n        CROSS JOIN latest_inventory_date_us ld\n        WHERE f.snapshot_date = ld.max_date\n    ) f WHERE f.rn = 1\n),\nmax_storage_month_us AS (\n    SELECT MAX(month_of_charge) AS max_month\n    FROM \"sp-api-reports\".fba_storage_fees_reports\n    WHERE year_of_charge = {{ $json.year }} AND marketplace_id = 1 AND month_of_charge <= {{ $json.month }}\n),\nstorage_fee_us AS (\n    SELECT sfr.fnsku, sfr.fee_per_unit\n    FROM (\n        SELECT sfr.fnsku,\n            CASE WHEN sfr.average_quantity_on_hand > 0 \n                 THEN sfr.estimated_monthly_storage_fee / sfr.average_quantity_on_hand\n                 ELSE NULL END AS fee_per_unit,\n            ROW_NUMBER() OVER (PARTITION BY sfr.fnsku ORDER BY sfr.fulfillment_center) AS rn\n        FROM \"sp-api-reports\".fba_storage_fees_reports sfr\n        CROSS JOIN max_storage_month_us msm\n        WHERE sfr.year_of_charge = {{ $json.year }} AND sfr.marketplace_id = 1 AND sfr.month_of_charge = msm.max_month\n    ) sfr WHERE sfr.rn = 1\n),\nmax_sales_date_us AS (\n    SELECT MAX(date) AS max_date FROM \"sp-api-reports\".product_sales\n    WHERE marketplace_id = 1 AND date <= (SELECT target_date FROM target_date)\n),\nfba_qty_us AS (\n    SELECT asin, SUM(available) AS amazon_fba_qty\n    FROM \"sp-api-reports\".fba_inventory_reports_us\n    WHERE snapshot_date = (SELECT max_date FROM latest_inventory_date_us)\n        AND sku NOT LIKE '%amzn%' AND sku NOT LIKE '%Amazon%'\n    GROUP BY asin\n),\nsales_forecast_us AS (\n    SELECT p2.asin, (SUM(ps.unit_count) / 30.0) * 75 AS forecast_75d\n    FROM \"sp-api-reports\".product_sales ps\n    JOIN reference.products p2 ON ps.product_id = p2.id\n    CROSS JOIN max_sales_date_us msd\n    WHERE ps.marketplace_id = 1 AND ps.date <= msd.max_date AND ps.date > (msd.max_date - INTERVAL '30 days')\n    GROUP BY p2.asin\n),\noverhead_us AS (\n    SELECT bp.category, bp.category_id, bp.marketplace_id,\n        ROUND(COALESCE(FLOOR(GREATEST(COALESCE(fba.amazon_fba_qty, 0) - COALESCE(sf.forecast_75d, 0), 0)) * COALESCE(stor.fee_per_unit, 0), 0), 2) AS overhead_spend\n    FROM base_products bp\n    LEFT JOIN fba_qty_us fba ON bp.asin = fba.asin\n    LEFT JOIN sales_forecast_us sf ON bp.asin = sf.asin\n    LEFT JOIN primary_fnsku_us pf ON bp.asin = pf.asin\n    LEFT JOIN storage_fee_us stor ON pf.primary_fnsku = stor.fnsku\n    WHERE bp.marketplace_id = 1\n),\n\n-- ===== MARKETPLACE_ID = 2 =====\nlatest_inventory_date_eu AS (\n    SELECT MAX(report_date) AS max_date \n    FROM \"sp-api-reports\".multicountry_fba_inventory_reports\n    WHERE marketplace_id = 2 AND report_date <= (SELECT target_date FROM target_date)\n),\nprimary_fnsku_eu AS (\n    SELECT f.asin, f.fnsku AS primary_fnsku\n    FROM (\n        SELECT f.asin, f.fnsku,\n            ROW_NUMBER() OVER (PARTITION BY f.asin ORDER BY f.quantity_for_local_fulfillment DESC, f.fnsku) AS rn\n        FROM \"sp-api-reports\".multicountry_fba_inventory_reports f\n        CROSS JOIN latest_inventory_date_eu ld\n        WHERE f.report_date = ld.max_date AND f.marketplace_id = 2\n    ) f WHERE f.rn = 1\n),\nmax_storage_month_eu AS (\n    SELECT MAX(month_of_charge) AS max_month\n    FROM \"sp-api-reports\".fba_storage_fees_reports\n    WHERE year_of_charge = {{ $json.year }} AND marketplace_id = 2 AND month_of_charge <= {{ $json.month }}\n),\nstorage_fee_eu AS (\n    SELECT sfr.fnsku, sfr.fee_per_unit\n    FROM (\n        SELECT sfr.fnsku,\n            CASE WHEN sfr.average_quantity_on_hand > 0 \n                 THEN sfr.estimated_monthly_storage_fee / sfr.average_quantity_on_hand\n                 ELSE NULL END AS fee_per_unit,\n            ROW_NUMBER() OVER (PARTITION BY sfr.fnsku ORDER BY sfr.fulfillment_center) AS rn\n        FROM \"sp-api-reports\".fba_storage_fees_reports sfr\n        CROSS JOIN max_storage_month_eu msm\n        WHERE sfr.year_of_charge = {{ $json.year }} AND sfr.marketplace_id = 2 AND sfr.month_of_charge = msm.max_month\n    ) sfr WHERE sfr.rn = 1\n),\nmax_sales_date_eu AS (\n    SELECT MAX(date) AS max_date FROM \"sp-api-reports\".product_sales\n    WHERE marketplace_id = 2 AND date <= (SELECT target_date FROM target_date)\n),\nfba_qty_eu AS (\n    SELECT asin, SUM(quantity_for_local_fulfillment) AS amazon_fba_qty\n    FROM \"sp-api-reports\".multicountry_fba_inventory_reports\n    WHERE report_date = (SELECT max_date FROM latest_inventory_date_eu)\n        AND marketplace_id = 2 AND sku NOT LIKE '%amzn%' AND sku NOT LIKE '%Amazon%'\n    GROUP BY asin\n),\nsales_forecast_eu AS (\n    SELECT p2.asin, (SUM(ps.unit_count) / 30.0) * 75 AS forecast_75d\n    FROM \"sp-api-reports\".product_sales ps\n    JOIN reference.products p2 ON ps.product_id = p2.id\n    CROSS JOIN max_sales_date_eu msd\n    WHERE ps.marketplace_id = 2 AND ps.date <= msd.max_date AND ps.date > (msd.max_date - INTERVAL '30 days')\n    GROUP BY p2.asin\n),\noverhead_eu AS (\n    SELECT bp.category, bp.category_id, bp.marketplace_id,\n        ROUND(COALESCE(FLOOR(GREATEST(COALESCE(fba.amazon_fba_qty, 0) - COALESCE(sf.forecast_75d, 0), 0)) * COALESCE(stor.fee_per_unit, 0), 0), 2) AS overhead_spend\n    FROM base_products bp\n    LEFT JOIN fba_qty_eu fba ON bp.asin = fba.asin\n    LEFT JOIN sales_forecast_eu sf ON bp.asin = sf.asin\n    LEFT JOIN primary_fnsku_eu pf ON bp.asin = pf.asin\n    LEFT JOIN storage_fee_eu stor ON pf.primary_fnsku = stor.fnsku\n    WHERE bp.marketplace_id = 2\n)\n\nSELECT \n    4                          AS kpi_id,\n    {{ $json.month }}::int     AS month,\n    {{ $json.year }}::int      AS year,\n    ac.category,\n    ac.marketplace_id,\n    ROUND(COALESCE(SUM(combined.overhead_spend), 0), 2) AS value\nFROM all_categories ac\nLEFT JOIN (\n    SELECT category, category_id, marketplace_id, overhead_spend FROM overhead_us\n    UNION ALL\n    SELECT category, category_id, marketplace_id, overhead_spend FROM overhead_eu\n) combined \n    ON ac.category_id = combined.category_id\n    AND ac.marketplace_id = combined.marketplace_id\nGROUP BY ac.category, ac.marketplace_id\nORDER BY ac.category, ac.marketplace_id;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        112,
+        2704
+      ],
+      "id": "3fe9bc3f-9abe-4765-9f1f-cd57fbc24c51",
+      "name": "збираю місячний OVERHEAD SPEND по групі товару USA1",
+      "credentials": {
+        "postgres": {
+          "id": "YMbDdiDzQYbv6xCL",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n  mp.product_id,\n  mp.marketplace_id,\n  COALESCE(SUM(combined.cost), 0) as total_cost,\n  CASE \n    WHEN COALESCE(SUM(COALESCE(combined.sales7d, combined.sales)), 0) = 0 THEN 0\n    ELSE ROUND((COALESCE(SUM(combined.cost), 0) / SUM(COALESCE(combined.sales7d, combined.sales))) * 100, 2)\n  END as acos_percentage\nFROM \n  reference.marketplace_products mp\nLEFT JOIN \n  \"ads-api-reports\".campaigns c ON mp.product_id = c.product_id \n  AND mp.marketplace_id = c.marketplace_id\nLEFT JOIN (\n  SELECT \n    campaign_id,\n    sales7d,\n    NULL as sales,\n    cost\n  FROM \"ads-api-reports\".ads_sp_campaigns_daily_reports\n  WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n    AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n  \n  UNION ALL\n  \n  SELECT \n    campaign_id,\n    NULL as sales7d,\n    sales,\n    cost\n  FROM \"ads-api-reports\".ads_sd_campaigns_reports\n  WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n    AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n  \n  UNION ALL\n  \n  SELECT \n    campaign_id,\n    NULL as sales7d,\n    sales,\n    cost\n  FROM \"ads-api-reports\".ads_sb_campaign_reports\n  WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n    AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n) combined ON c.campaign_id = combined.campaign_id\nGROUP BY \n  mp.product_id, mp.marketplace_id\nORDER BY \n  total_cost DESC",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -1344,
+        1024
+      ],
+      "id": "2e07b54f-9bd8-4aec-883a-fcda4ce7cd00",
+      "name": "збираю місячний АКОС по продукту1",
+      "credentials": {
+        "postgres": {
+          "id": "YMbDdiDzQYbv6xCL",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n  mp.product_id,\n  mp.marketplace_id,\n  COALESCE(ps.total_sales, 0) as total_sales,\n  COALESCE(SUM(combined.cost), 0) as total_cost,\n  CASE \n    WHEN COALESCE(ps.total_sales, 0) = 0 THEN 0\n    ELSE ROUND((COALESCE(SUM(combined.cost), 0) / ps.total_sales) * 100, 2)\n  END as acos_percentage\nFROM \n  reference.marketplace_products mp\nLEFT JOIN \n  \"ads-api-reports\".campaigns c ON mp.product_id = c.product_id \n  AND mp.marketplace_id = c.marketplace_id\nLEFT JOIN (\n  SELECT \n    campaign_id,\n    cost\n  FROM \"ads-api-reports\".ads_sp_campaigns_daily_reports\n  WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n    AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n  \n  UNION ALL\n  \n  SELECT \n    campaign_id,\n    cost\n  FROM \"ads-api-reports\".ads_sd_campaigns_reports\n  WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n    AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n  \n  UNION ALL\n  \n  SELECT \n    campaign_id,\n    cost\n  FROM \"ads-api-reports\".ads_sb_campaign_reports\n  WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n    AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n) combined ON c.campaign_id = combined.campaign_id\nLEFT JOIN (\n  SELECT \n    product_id,\n    marketplace_id,\n    SUM(total_sales_amount) as total_sales\n  FROM \"sp-api-reports\".product_sales\n  WHERE EXTRACT(MONTH FROM date) = {{ $json.month }}\n    AND EXTRACT(YEAR FROM date) = {{ $json.year }}\n  GROUP BY product_id, marketplace_id\n) ps ON mp.product_id = ps.product_id \n  AND mp.marketplace_id = ps.marketplace_id\nGROUP BY \n  mp.product_id, mp.marketplace_id, ps.total_sales\nORDER BY \n  total_cost DESC",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -1344,
+        1216
+      ],
+      "id": "f1a422a0-4af1-4b38-9389-897ad9ce3085",
+      "name": "збираю місячний ТАКОС по продукту USA1",
+      "credentials": {
+        "postgres": {
+          "id": "YMbDdiDzQYbv6xCL",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n    mp.product_id,\n    mp.marketplace_id,\n    COALESCE(ROUND(SUM(l.amount_charged), 2), 0) as total_amount_charged\nFROM \n    reference.marketplace_products mp\nLEFT JOIN \n    reference.products p ON mp.product_id = p.id\nLEFT JOIN \n    \"sp-api-reports\".longterm_storage_fees_charges_reports l ON p.asin = l.asin \n    AND mp.marketplace_id = l.marketplace_id\n    AND l.month_of_charge = {{ $json.month }}\n    AND l.year_of_charge = {{ $json.year }}\nGROUP BY \n    mp.product_id, mp.marketplace_id\nORDER BY \n    total_amount_charged DESC;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -1344,
+        1408
+      ],
+      "id": "6f93ebf0-673f-4aee-b9f3-1274e373293c",
+      "name": "збираю місячний LTFS по продукту1",
+      "credentials": {
+        "postgres": {
+          "id": "YMbDdiDzQYbv6xCL",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "WITH \ntarget_date AS (\n    SELECT (DATE_TRUNC('month', MAKE_DATE({{ $json.year }}::int, {{ $json.month }}::int, 1)) + INTERVAL '1 month - 1 day')::DATE AS target_date\n),\n\n-- Базовий список товарів\nbase_products AS (\n    SELECT \n        mp.product_id,\n        mp.marketplace_id,\n        p.asin\n    FROM reference.marketplace_products mp\n    JOIN reference.products p ON mp.product_id = p.id\n),\n\n-- ===== ЛОГІКА ДЛЯ MARKETPLACE_ID = 1 =====\nlatest_inventory_date_us AS (\n    SELECT MAX(snapshot_date) AS max_date \n    FROM \"sp-api-reports\".fba_inventory_reports_us\n    WHERE snapshot_date <= (SELECT target_date FROM target_date)\n),\nprimary_fnsku_us AS (\n    SELECT \n        f.asin,\n        f.fnsku AS primary_fnsku\n    FROM (\n        SELECT \n            f.asin,\n            f.fnsku,\n            ROW_NUMBER() OVER (PARTITION BY f.asin ORDER BY f.available DESC, f.fnsku) AS rn\n        FROM \"sp-api-reports\".fba_inventory_reports_us f\n        CROSS JOIN latest_inventory_date_us ld\n        WHERE f.snapshot_date = ld.max_date\n    ) f\n    WHERE f.rn = 1\n),\nmax_storage_month_us AS (\n    SELECT MAX(month_of_charge) AS max_month\n    FROM \"sp-api-reports\".fba_storage_fees_reports\n    WHERE year_of_charge = {{ $json.year }}\n        AND marketplace_id = 1\n        AND month_of_charge <= {{ $json.month }}\n),\nstorage_fee_us AS (\n    SELECT \n        sfr.fnsku,\n        sfr.fee_per_unit\n    FROM (\n        SELECT \n            sfr.fnsku,\n            CASE \n                WHEN sfr.average_quantity_on_hand > 0 \n                THEN sfr.estimated_monthly_storage_fee / sfr.average_quantity_on_hand\n                ELSE NULL \n            END AS fee_per_unit,\n            ROW_NUMBER() OVER (PARTITION BY sfr.fnsku ORDER BY sfr.fulfillment_center) AS rn\n        FROM \"sp-api-reports\".fba_storage_fees_reports sfr\n        CROSS JOIN max_storage_month_us msm\n        WHERE sfr.year_of_charge = {{ $json.year }}\n            AND sfr.marketplace_id = 1\n            AND sfr.month_of_charge = msm.max_month\n    ) sfr\n    WHERE sfr.rn = 1\n),\nmax_sales_date_us AS (\n    SELECT MAX(date) AS max_date\n    FROM \"sp-api-reports\".product_sales\n    WHERE marketplace_id = 1\n        AND date <= (SELECT target_date FROM target_date)\n),\nfba_qty_us AS (\n    SELECT \n        asin,\n        SUM(available) AS amazon_fba_qty\n    FROM \"sp-api-reports\".fba_inventory_reports_us\n    WHERE snapshot_date = (SELECT max_date FROM latest_inventory_date_us)\n        AND sku NOT LIKE '%amzn%'\n        AND sku NOT LIKE '%Amazon%'\n    GROUP BY asin\n),\nsales_forecast_us AS (\n    SELECT \n        p2.asin,\n        (SUM(ps.unit_count) / 30.0) * 75 AS forecast_75d\n    FROM \"sp-api-reports\".product_sales ps\n    JOIN reference.products p2 ON ps.product_id = p2.id\n    CROSS JOIN max_sales_date_us msd\n    WHERE ps.marketplace_id = 1\n        AND ps.date <= msd.max_date\n        AND ps.date > (msd.max_date - INTERVAL '30 days')\n    GROUP BY p2.asin\n),\noverhead_us AS (\n    SELECT \n        bp.product_id,\n        bp.marketplace_id,\n        ROUND(COALESCE(\n            FLOOR(GREATEST(COALESCE(fba.amazon_fba_qty, 0) - COALESCE(sf.forecast_75d, 0), 0)) * \n            COALESCE(stor.fee_per_unit, 0), 0\n        ), 2) AS overhead_spend\n    FROM base_products bp\n    LEFT JOIN fba_qty_us fba ON bp.asin = fba.asin\n    LEFT JOIN sales_forecast_us sf ON bp.asin = sf.asin\n    LEFT JOIN primary_fnsku_us pf ON bp.asin = pf.asin\n    LEFT JOIN storage_fee_us stor ON pf.primary_fnsku = stor.fnsku\n    WHERE bp.marketplace_id = 1\n),\n\n-- ===== ЛОГІКА ДЛЯ MARKETPLACE_ID = 2 =====\nlatest_inventory_date_eu AS (\n    SELECT MAX(report_date) AS max_date \n    FROM \"sp-api-reports\".multicountry_fba_inventory_reports\n    WHERE marketplace_id = 2\n        AND report_date <= (SELECT target_date FROM target_date)\n),\nprimary_fnsku_eu AS (\n    SELECT \n        f.asin,\n        f.fnsku AS primary_fnsku\n    FROM (\n        SELECT \n            f.asin,\n            f.fnsku,\n            ROW_NUMBER() OVER (PARTITION BY f.asin ORDER BY f.quantity_for_local_fulfillment DESC, f.fnsku) AS rn\n        FROM \"sp-api-reports\".multicountry_fba_inventory_reports f\n        CROSS JOIN latest_inventory_date_eu ld\n        WHERE f.report_date = ld.max_date\n            AND f.marketplace_id = 2\n    ) f\n    WHERE f.rn = 1\n),\nmax_storage_month_eu AS (\n    SELECT MAX(month_of_charge) AS max_month\n    FROM \"sp-api-reports\".fba_storage_fees_reports\n    WHERE year_of_charge = {{ $json.year }}\n        AND marketplace_id = 2\n        AND month_of_charge <= {{ $json.month }}\n),\nstorage_fee_eu AS (\n    SELECT \n        sfr.fnsku,\n        sfr.fee_per_unit\n    FROM (\n        SELECT \n            sfr.fnsku,\n            CASE \n                WHEN sfr.average_quantity_on_hand > 0 \n                THEN sfr.estimated_monthly_storage_fee / sfr.average_quantity_on_hand\n                ELSE NULL \n            END AS fee_per_unit,\n            ROW_NUMBER() OVER (PARTITION BY sfr.fnsku ORDER BY sfr.fulfillment_center) AS rn\n        FROM \"sp-api-reports\".fba_storage_fees_reports sfr\n        CROSS JOIN max_storage_month_eu msm\n        WHERE sfr.year_of_charge = {{ $json.year }}\n            AND sfr.marketplace_id = 2\n            AND sfr.month_of_charge = msm.max_month\n    ) sfr\n    WHERE sfr.rn = 1\n),\nmax_sales_date_eu AS (\n    SELECT MAX(date) AS max_date\n    FROM \"sp-api-reports\".product_sales\n    WHERE marketplace_id = 2\n        AND date <= (SELECT target_date FROM target_date)\n),\nfba_qty_eu AS (\n    SELECT \n        asin,\n        SUM(quantity_for_local_fulfillment) AS amazon_fba_qty\n    FROM \"sp-api-reports\".multicountry_fba_inventory_reports\n    WHERE report_date = (SELECT max_date FROM latest_inventory_date_eu)\n        AND marketplace_id = 2\n        AND sku NOT LIKE '%amzn%'\n        AND sku NOT LIKE '%Amazon%'\n    GROUP BY asin\n),\nsales_forecast_eu AS (\n    SELECT \n        p2.asin,\n        (SUM(ps.unit_count) / 30.0) * 75 AS forecast_75d\n    FROM \"sp-api-reports\".product_sales ps\n    JOIN reference.products p2 ON ps.product_id = p2.id\n    CROSS JOIN max_sales_date_eu msd\n    WHERE ps.marketplace_id = 2\n        AND ps.date <= msd.max_date\n        AND ps.date > (msd.max_date - INTERVAL '30 days')\n    GROUP BY p2.asin\n),\noverhead_eu AS (\n    SELECT \n        bp.product_id,\n        bp.marketplace_id,\n        ROUND(COALESCE(\n            FLOOR(GREATEST(COALESCE(fba.amazon_fba_qty, 0) - COALESCE(sf.forecast_75d, 0), 0)) * \n            COALESCE(stor.fee_per_unit, 0), 0\n        ), 2) AS overhead_spend\n    FROM base_products bp\n    LEFT JOIN fba_qty_eu fba ON bp.asin = fba.asin\n    LEFT JOIN sales_forecast_eu sf ON bp.asin = sf.asin\n    LEFT JOIN primary_fnsku_eu pf ON bp.asin = pf.asin\n    LEFT JOIN storage_fee_eu stor ON pf.primary_fnsku = stor.fnsku\n    WHERE bp.marketplace_id = 2\n)\n\n-- Фінальний результат\nSELECT \n    product_id,\n    marketplace_id,\n    ROUND(SUM(overhead_spend), 2) AS total_overhead_spend\nFROM (\n    SELECT product_id, marketplace_id, overhead_spend FROM overhead_us\n    UNION ALL\n    SELECT product_id, marketplace_id, overhead_spend FROM overhead_eu\n) combined\nGROUP BY product_id, marketplace_id\nORDER BY product_id, marketplace_id;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -1344,
+        1616
+      ],
+      "id": "11bad5a9-d58f-46c1-82c1-79bb50370b2d",
+      "name": "збираю місячний OVERHEAD SPEND по продукту1",
+      "credentials": {
+        "postgres": {
+          "id": "YMbDdiDzQYbv6xCL",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "WITH product_campaigns AS (\n    SELECT \n        mp.ppc_id,\n        mp.product_id,\n        mp.marketplace_id,\n        c.campaign_id,\n        c.type\n    FROM reference.marketplace_products mp\n    LEFT JOIN \"ads-api-reports\".campaigns c \n        ON mp.product_id = c.product_id \n        AND mp.marketplace_id = c.marketplace_id\n    WHERE mp.ppc_id IS NOT NULL\n),\ncampaign_metrics AS (\n    -- SP кампанії (Sponsored Products)\n    SELECT \n        pc.ppc_id,\n        pc.marketplace_id,\n        SUM(COALESCE(r.sales7d, 0)) AS total_sales,\n        SUM(COALESCE(r.cost, 0)) AS total_cost\n    FROM product_campaigns pc\n    LEFT JOIN \"ads-api-reports\".ads_sp_campaigns_daily_reports r \n        ON pc.campaign_id = r.campaign_id\n        AND EXTRACT(YEAR FROM r.date) = {{ $json.year }}\n        AND EXTRACT(MONTH FROM r.date) = {{ $json.month }}\n    WHERE pc.type = 'SP' OR pc.type IS NULL\n    GROUP BY pc.ppc_id, pc.marketplace_id\n    \n    UNION ALL\n    \n    -- SB кампанії (Sponsored Brands)\n    SELECT \n        pc.ppc_id,\n        pc.marketplace_id,\n        SUM(COALESCE(r.sales, 0)) AS total_sales,\n        SUM(COALESCE(r.cost, 0)) AS total_cost\n    FROM product_campaigns pc\n    LEFT JOIN \"ads-api-reports\".ads_sb_campaign_reports r \n        ON pc.campaign_id = r.campaign_id\n        AND EXTRACT(YEAR FROM r.date) = {{ $json.year }}\n        AND EXTRACT(MONTH FROM r.date) = {{ $json.month }}\n    WHERE pc.type = 'SB' OR pc.type IS NULL\n    GROUP BY pc.ppc_id, pc.marketplace_id\n    \n    UNION ALL\n    \n    -- SD кампанії (Sponsored Display)\n    SELECT \n        pc.ppc_id,\n        pc.marketplace_id,\n        SUM(COALESCE(r.sales, 0)) AS total_sales,\n        SUM(COALESCE(r.cost, 0)) AS total_cost\n    FROM product_campaigns pc\n    LEFT JOIN \"ads-api-reports\".ads_sd_campaigns_reports r \n        ON pc.campaign_id = r.campaign_id\n        AND EXTRACT(YEAR FROM r.date) = {{ $json.year }}\n        AND EXTRACT(MONTH FROM r.date) = {{ $json.month }}\n    WHERE pc.type = 'SD' OR pc.type IS NULL\n    GROUP BY pc.ppc_id, pc.marketplace_id\n)\n-- Фінальний розрахунок ACOS\nSELECT \n    ppc_id,\n    marketplace_id,\n    SUM(total_sales) as total_sales,\n    SUM(total_cost) as total_cost,\n    CASE \n        WHEN SUM(total_sales) > 0 \n        THEN ROUND((SUM(total_cost) / SUM(total_sales)) * 100, 2)\n        ELSE 0 \n    END AS acos\nFROM campaign_metrics\nGROUP BY ppc_id, marketplace_id\nORDER BY ppc_id, marketplace_id;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -1344,
+        2112
+      ],
+      "id": "a274eeba-c8c6-40dd-8423-f2db9d7e80e7",
+      "name": "збираю місячний АКОС по ppc_id1",
+      "credentials": {
+        "postgres": {
+          "id": "YMbDdiDzQYbv6xCL",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "WITH product_campaigns AS (\n    SELECT \n        mp.ppc_id,\n        mp.product_id,\n        mp.marketplace_id,\n        c.campaign_id,\n        c.type\n    FROM reference.marketplace_products mp\n    LEFT JOIN \"ads-api-reports\".campaigns c \n        ON mp.product_id = c.product_id \n        AND mp.marketplace_id = c.marketplace_id\n    WHERE mp.ppc_id IS NOT NULL\n),\ncampaign_costs AS (\n    -- SP кампанії\n    SELECT \n        pc.ppc_id,\n        pc.product_id,\n        pc.marketplace_id,\n        SUM(COALESCE(r.cost, 0)) AS total_cost\n    FROM product_campaigns pc\n    LEFT JOIN \"ads-api-reports\".ads_sp_campaigns_daily_reports r \n        ON pc.campaign_id = r.campaign_id\n        AND EXTRACT(YEAR FROM r.date) = {{ $json.year }}\n        AND EXTRACT(MONTH FROM r.date) = {{ $json.month }}\n    WHERE pc.type = 'SP' OR pc.type IS NULL\n    GROUP BY pc.ppc_id, pc.product_id, pc.marketplace_id\n    \n    UNION ALL\n    \n    -- SB кампанії\n    SELECT \n        pc.ppc_id,\n        pc.product_id,\n        pc.marketplace_id,\n        SUM(COALESCE(r.cost, 0)) AS total_cost\n    FROM product_campaigns pc\n    LEFT JOIN \"ads-api-reports\".ads_sb_campaign_reports r \n        ON pc.campaign_id = r.campaign_id\n        AND EXTRACT(YEAR FROM r.date) = {{ $json.year }}\n        AND EXTRACT(MONTH FROM r.date) = {{ $json.month }}\n    WHERE pc.type = 'SB' OR pc.type IS NULL\n    GROUP BY pc.ppc_id, pc.product_id, pc.marketplace_id\n    \n    UNION ALL\n    \n    -- SD кампанії\n    SELECT \n        pc.ppc_id,\n        pc.product_id,\n        pc.marketplace_id,\n        SUM(COALESCE(r.cost, 0)) AS total_cost\n    FROM product_campaigns pc\n    LEFT JOIN \"ads-api-reports\".ads_sd_campaigns_reports r \n        ON pc.campaign_id = r.campaign_id\n        AND EXTRACT(YEAR FROM r.date) = {{ $json.year }}\n        AND EXTRACT(MONTH FROM r.date) = {{ $json.month }}\n    WHERE pc.type = 'SD' OR pc.type IS NULL\n    GROUP BY pc.ppc_id, pc.product_id, pc.marketplace_id\n),\nproduct_total_sales AS (\n    SELECT \n        product_id,\n        marketplace_id,\n        SUM(total_sales_amount) as total_sales\n    FROM \"sp-api-reports\".product_sales\n    WHERE EXTRACT(YEAR FROM date) = {{ $json.year }}\n        AND EXTRACT(MONTH FROM date) = {{ $json.month }}\n    GROUP BY product_id, marketplace_id\n)\nSELECT \n    cc.ppc_id,\n    cc.marketplace_id,\n    SUM(COALESCE(ps.total_sales, 0)) as total_sales,\n    SUM(cc.total_cost) as total_cost,\n    CASE \n        WHEN SUM(COALESCE(ps.total_sales, 0)) = 0 THEN 0\n        ELSE ROUND((SUM(cc.total_cost) / SUM(ps.total_sales)) * 100, 2)\n    END AS tacos\nFROM campaign_costs cc\nLEFT JOIN product_total_sales ps \n    ON cc.product_id = ps.product_id \n    AND cc.marketplace_id = ps.marketplace_id\nGROUP BY cc.ppc_id, cc.marketplace_id\nORDER BY cc.ppc_id, cc.marketplace_id;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -1344,
+        2304
+      ],
+      "id": "ed0d1464-241c-41a8-8d5c-ac754c26daf5",
+      "name": "збираю місячний TАКОС по ppc_id1",
+      "credentials": {
+        "postgres": {
+          "id": "YMbDdiDzQYbv6xCL",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n    mp.ppc_id,\n    mp.marketplace_id,\n    ROUND(COALESCE(SUM(lsf.amount_charged), 0), 2) as value\nFROM reference.marketplace_products mp\nINNER JOIN reference.products p ON mp.product_id = p.id\nLEFT JOIN \"sp-api-reports\".longterm_storage_fees_charges_reports lsf\n    ON p.asin = lsf.asin\n    AND mp.marketplace_id = lsf.marketplace_id\n    AND lsf.year_of_charge = {{ $json.year }}\n    AND lsf.month_of_charge = {{ $json.month }}\nWHERE mp.ppc_id IS NOT NULL\nGROUP BY mp.ppc_id, mp.marketplace_id\nORDER BY mp.ppc_id, mp.marketplace_id;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -1344,
+        2512
+      ],
+      "id": "922cd156-e490-4e20-8387-ed15ccf31328",
+      "name": "збираю місячний LTFS по ppc_id1",
+      "credentials": {
+        "postgres": {
+          "id": "YMbDdiDzQYbv6xCL",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "WITH \ntarget_date AS (\n    SELECT (DATE_TRUNC('month', MAKE_DATE({{ $json.year }}::int, {{ $json.month }}::int, 1)) + INTERVAL '1 month - 1 day')::DATE AS target_date\n),\n\n-- Базовий список товарів з ppc_id\nbase_products AS (\n    SELECT \n        mp.ppc_id,\n        mp.product_id,\n        mp.marketplace_id,\n        p.asin\n    FROM reference.marketplace_products mp\n    JOIN reference.products p ON mp.product_id = p.id\n    WHERE mp.ppc_id IS NOT NULL\n),\n\n-- ===== ЛОГІКА ДЛЯ MARKETPLACE_ID = 1 =====\nlatest_inventory_date_us AS (\n    SELECT MAX(snapshot_date) AS max_date \n    FROM \"sp-api-reports\".fba_inventory_reports_us\n    WHERE snapshot_date <= (SELECT target_date FROM target_date)\n),\nprimary_fnsku_us AS (\n    SELECT \n        f.asin,\n        f.fnsku AS primary_fnsku\n    FROM (\n        SELECT \n            f.asin,\n            f.fnsku,\n            ROW_NUMBER() OVER (PARTITION BY f.asin ORDER BY f.available DESC, f.fnsku) AS rn\n        FROM \"sp-api-reports\".fba_inventory_reports_us f\n        CROSS JOIN latest_inventory_date_us ld\n        WHERE f.snapshot_date = ld.max_date\n    ) f\n    WHERE f.rn = 1\n),\nmax_storage_month_us AS (\n    SELECT MAX(month_of_charge) AS max_month\n    FROM \"sp-api-reports\".fba_storage_fees_reports\n    WHERE year_of_charge = {{ $json.year }}\n        AND marketplace_id = 1\n        AND month_of_charge <= {{ $json.month }}\n),\nstorage_fee_us AS (\n    SELECT \n        sfr.fnsku,\n        sfr.fee_per_unit\n    FROM (\n        SELECT \n            sfr.fnsku,\n            CASE \n                WHEN sfr.average_quantity_on_hand > 0 \n                THEN sfr.estimated_monthly_storage_fee / sfr.average_quantity_on_hand\n                ELSE NULL \n            END AS fee_per_unit,\n            ROW_NUMBER() OVER (PARTITION BY sfr.fnsku ORDER BY sfr.fulfillment_center) AS rn\n        FROM \"sp-api-reports\".fba_storage_fees_reports sfr\n        CROSS JOIN max_storage_month_us msm\n        WHERE sfr.year_of_charge = {{ $json.year }}\n            AND sfr.marketplace_id = 1\n            AND sfr.month_of_charge = msm.max_month\n    ) sfr\n    WHERE sfr.rn = 1\n),\nmax_sales_date_us AS (\n    SELECT MAX(date) AS max_date\n    FROM \"sp-api-reports\".product_sales\n    WHERE marketplace_id = 1\n        AND date <= (SELECT target_date FROM target_date)\n),\nfba_qty_us AS (\n    SELECT \n        asin,\n        SUM(available) AS amazon_fba_qty\n    FROM \"sp-api-reports\".fba_inventory_reports_us\n    WHERE snapshot_date = (SELECT max_date FROM latest_inventory_date_us)\n        AND sku NOT LIKE '%amzn%'\n        AND sku NOT LIKE '%Amazon%'\n    GROUP BY asin\n),\nsales_forecast_us AS (\n    SELECT \n        p2.asin,\n        (SUM(ps.unit_count) / 30.0) * 75 AS forecast_75d\n    FROM \"sp-api-reports\".product_sales ps\n    JOIN reference.products p2 ON ps.product_id = p2.id\n    CROSS JOIN max_sales_date_us msd\n    WHERE ps.marketplace_id = 1\n        AND ps.date <= msd.max_date\n        AND ps.date > (msd.max_date - INTERVAL '30 days')\n    GROUP BY p2.asin\n),\noverhead_us AS (\n    SELECT \n        bp.ppc_id,\n        bp.marketplace_id,\n        ROUND(COALESCE(\n            FLOOR(GREATEST(COALESCE(fba.amazon_fba_qty, 0) - COALESCE(sf.forecast_75d, 0), 0)) * \n            COALESCE(stor.fee_per_unit, 0), 0\n        ), 2) AS overhead_spend\n    FROM base_products bp\n    LEFT JOIN fba_qty_us fba ON bp.asin = fba.asin\n    LEFT JOIN sales_forecast_us sf ON bp.asin = sf.asin\n    LEFT JOIN primary_fnsku_us pf ON bp.asin = pf.asin\n    LEFT JOIN storage_fee_us stor ON pf.primary_fnsku = stor.fnsku\n    WHERE bp.marketplace_id = 1\n),\n\n-- ===== ЛОГІКА ДЛЯ MARKETPLACE_ID = 2 =====\nlatest_inventory_date_eu AS (\n    SELECT MAX(report_date) AS max_date \n    FROM \"sp-api-reports\".multicountry_fba_inventory_reports\n    WHERE marketplace_id = 2\n        AND report_date <= (SELECT target_date FROM target_date)\n),\nprimary_fnsku_eu AS (\n    SELECT \n        f.asin,\n        f.fnsku AS primary_fnsku\n    FROM (\n        SELECT \n            f.asin,\n            f.fnsku,\n            ROW_NUMBER() OVER (PARTITION BY f.asin ORDER BY f.quantity_for_local_fulfillment DESC, f.fnsku) AS rn\n        FROM \"sp-api-reports\".multicountry_fba_inventory_reports f\n        CROSS JOIN latest_inventory_date_eu ld\n        WHERE f.report_date = ld.max_date\n            AND f.marketplace_id = 2\n    ) f\n    WHERE f.rn = 1\n),\nmax_storage_month_eu AS (\n    SELECT MAX(month_of_charge) AS max_month\n    FROM \"sp-api-reports\".fba_storage_fees_reports\n    WHERE year_of_charge = {{ $json.year }}\n        AND marketplace_id = 2\n        AND month_of_charge <= {{ $json.month }}\n),\nstorage_fee_eu AS (\n    SELECT \n        sfr.fnsku,\n        sfr.fee_per_unit\n    FROM (\n        SELECT \n            sfr.fnsku,\n            CASE \n                WHEN sfr.average_quantity_on_hand > 0 \n                THEN sfr.estimated_monthly_storage_fee / sfr.average_quantity_on_hand\n                ELSE NULL \n            END AS fee_per_unit,\n            ROW_NUMBER() OVER (PARTITION BY sfr.fnsku ORDER BY sfr.fulfillment_center) AS rn\n        FROM \"sp-api-reports\".fba_storage_fees_reports sfr\n        CROSS JOIN max_storage_month_eu msm\n        WHERE sfr.year_of_charge = {{ $json.year }}\n            AND sfr.marketplace_id = 2\n            AND sfr.month_of_charge = msm.max_month\n    ) sfr\n    WHERE sfr.rn = 1\n),\nmax_sales_date_eu AS (\n    SELECT MAX(date) AS max_date\n    FROM \"sp-api-reports\".product_sales\n    WHERE marketplace_id = 2\n        AND date <= (SELECT target_date FROM target_date)\n),\nfba_qty_eu AS (\n    SELECT \n        asin,\n        SUM(quantity_for_local_fulfillment) AS amazon_fba_qty\n    FROM \"sp-api-reports\".multicountry_fba_inventory_reports\n    WHERE report_date = (SELECT max_date FROM latest_inventory_date_eu)\n        AND marketplace_id = 2\n        AND sku NOT LIKE '%amzn%'\n        AND sku NOT LIKE '%Amazon%'\n    GROUP BY asin\n),\nsales_forecast_eu AS (\n    SELECT \n        p2.asin,\n        (SUM(ps.unit_count) / 30.0) * 75 AS forecast_75d\n    FROM \"sp-api-reports\".product_sales ps\n    JOIN reference.products p2 ON ps.product_id = p2.id\n    CROSS JOIN max_sales_date_eu msd\n    WHERE ps.marketplace_id = 2\n        AND ps.date <= msd.max_date\n        AND ps.date > (msd.max_date - INTERVAL '30 days')\n    GROUP BY p2.asin\n),\noverhead_eu AS (\n    SELECT \n        bp.ppc_id,\n        bp.marketplace_id,\n        ROUND(COALESCE(\n            FLOOR(GREATEST(COALESCE(fba.amazon_fba_qty, 0) - COALESCE(sf.forecast_75d, 0), 0)) * \n            COALESCE(stor.fee_per_unit, 0), 0\n        ), 2) AS overhead_spend\n    FROM base_products bp\n    LEFT JOIN fba_qty_eu fba ON bp.asin = fba.asin\n    LEFT JOIN sales_forecast_eu sf ON bp.asin = sf.asin\n    LEFT JOIN primary_fnsku_eu pf ON bp.asin = pf.asin\n    LEFT JOIN storage_fee_eu stor ON pf.primary_fnsku = stor.fnsku\n    WHERE bp.marketplace_id = 2\n)\n\n-- Фінальний результат\nSELECT \n    ppc_id,\n    marketplace_id,\n    ROUND(SUM(overhead_spend), 2) AS total_overhead_spend\nFROM (\n    SELECT ppc_id, marketplace_id, overhead_spend FROM overhead_us\n    UNION ALL\n    SELECT ppc_id, marketplace_id, overhead_spend FROM overhead_eu\n) combined\nGROUP BY ppc_id, marketplace_id\nORDER BY ppc_id, marketplace_id;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -1344,
+        2688
+      ],
+      "id": "24edda65-ca54-4166-9f8d-2bbd6b68bcf1",
+      "name": "збираю місячний OVERHEAD SPEND по ppc_id1",
+      "credentials": {
+        "postgres": {
+          "id": "YMbDdiDzQYbv6xCL",
+          "name": "Postgres account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "налаштування",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge3": {
+      "main": [
+        [
+          {
+            "node": "додаю markeplace_name для product_group_monthly_kpi",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge4": {
+      "main": [
+        [
+          {
+            "node": "додаю markeplace_name для ppc_group_monthly_kpi",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge6": {
+      "main": [
+        [
+          {
+            "node": "додаю markeplace_name для all_products_monthly_kpi",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge8": {
+      "main": [
+        [
+          {
+            "node": "додаю markeplace_name для product_monthly_kpi",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "налаштування": {
+      "main": [
+        [
+          {
+            "node": "збираю місячний АКОС загальний USA",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "збираю місячний ТАКОС загальний USA1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "збираю місячний LTFS загальний USA1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "збираю місячний OVERHEAD SPEND загальний USA1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "збираю місячний АКОС загальний CA1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "збираю місячний ТАКОС загальний CA1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "збираю місячний LTFS загальний CA1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "збираю місячний OVERHEAD SPEND загальний CA1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "збираю місячний АКОС по групі товару1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "збираю місячний TАКОС по групі товару USA1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "збираю місячний LTFS по групі товару USA1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "збираю місячний OVERHEAD SPEND по групі товару USA1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "збираю місячний АКОС по продукту1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "збираю місячний ТАКОС по продукту USA1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "збираю місячний LTFS по продукту1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "збираю місячний OVERHEAD SPEND по продукту1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "збираю місячний АКОС по ppc_id1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "збираю місячний TАКОС по ppc_id1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "збираю місячний LTFS по ppc_id1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "збираю місячний OVERHEAD SPEND по ppc_id1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Вибираю потрібні рядки для АКОС і додаю kpi_id по товару": {
+      "main": [
+        [
+          {
+            "node": "Merge8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Вибираю потрібні рядки для АКОС і додаю kpi_id по ppc_id": {
+      "main": [
+        [
+          {
+            "node": "Merge4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Вибираю потрібні рядки для АКОС і додаю kpi_id по категорії": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Вибираю потрібні рядки для АКОС і додаю kpi_id для Канади": {
+      "main": [
+        [
+          {
+            "node": "Merge6",
+            "type": "main",
+            "index": 4
+          }
+        ]
+      ]
+    },
+    "Вибираю потрібні рядки для АКОС і додаю kpi_id для США": {
+      "main": [
+        [
+          {
+            "node": "Merge6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Вибираю потрібні рядки для ТАКОС і додаю kpi_id для США": {
+      "main": [
+        [
+          {
+            "node": "Merge6",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Вибираю потрібні рядки для ТАКОС і додаю kpi_id по товару": {
+      "main": [
+        [
+          {
+            "node": "Merge8",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Вибираю потрібні рядки для ТАКОС і додаю kpi_id по ppc_id": {
+      "main": [
+        [
+          {
+            "node": "Merge4",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Вибираю потрібні рядки для ТАКОС і додаю kpi_id по категорії": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Вибираю потрібні рядки для ТАКОС і додаю kpi_id для Канади": {
+      "main": [
+        [
+          {
+            "node": "Merge6",
+            "type": "main",
+            "index": 5
+          }
+        ]
+      ]
+    },
+    "Вибираю потрібні рядки для LTFS і додаю kpi_id для США": {
+      "main": [
+        [
+          {
+            "node": "Merge6",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Вибираю потрібні рядки для LTFS і додаю kpi_id для Канади": {
+      "main": [
+        [
+          {
+            "node": "Merge6",
+            "type": "main",
+            "index": 6
+          }
+        ]
+      ]
+    },
+    "Вибираю потрібні рядки для LTFS і додаю kpi_id по категорії": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Вибираю потрібні рядки для LTFS і додаю kpi_id по ppc_id": {
+      "main": [
+        [
+          {
+            "node": "Merge4",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Вибираю потрібні рядки для LTFS і додаю kpi_id по товару": {
+      "main": [
+        [
+          {
+            "node": "Merge8",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Вибираю потрібні рядки для Overhead spend і додаю kpi_id для США": {
+      "main": [
+        [
+          {
+            "node": "Merge6",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Вибираю потрібні рядки для Overhead spend і додаю kpi_id для Канади": {
+      "main": [
+        [
+          {
+            "node": "Merge6",
+            "type": "main",
+            "index": 7
+          }
+        ]
+      ]
+    },
+    "Вибираю потрібні рядки для Overhead spend і додаю kpi_id по ppc_id": {
+      "main": [
+        [
+          {
+            "node": "Merge4",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Вибираю потрібні рядки для Overhead spend і додаю kpi_id по товару": {
+      "main": [
+        [
+          {
+            "node": "Merge8",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "додаю markeplace_name для product_monthly_kpi": {
+      "main": [
+        [
+          {
+            "node": "Postgres, записую в product_monthly_kpi",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "додаю markeplace_name для all_products_monthly_kpi": {
+      "main": [
+        [
+          {
+            "node": "Postgres, записую в all_products_monthly_kpi",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "додаю markeplace_name для product_group_monthly_kpi": {
+      "main": [
+        [
+          {
+            "node": "Postgres, записую в product_group_monthly_kpi",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "додаю markeplace_name для ppc_group_monthly_kpi": {
+      "main": [
+        [
+          {
+            "node": "Postgres, записую в ppc_group_monthly_kpi",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "збираю місячний АКОС загальний USA": {
+      "main": [
+        [
+          {
+            "node": "Вибираю потрібні рядки для АКОС і додаю kpi_id для США",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "збираю місячний ТАКОС загальний USA1": {
+      "main": [
+        [
+          {
+            "node": "Вибираю потрібні рядки для ТАКОС і додаю kpi_id для США",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "збираю місячний LTFS загальний USA1": {
+      "main": [
+        [
+          {
+            "node": "Вибираю потрібні рядки для LTFS і додаю kpi_id для США",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "збираю місячний OVERHEAD SPEND загальний USA1": {
+      "main": [
+        [
+          {
+            "node": "Вибираю потрібні рядки для Overhead spend і додаю kpi_id для США",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "збираю місячний АКОС загальний CA1": {
+      "main": [
+        [
+          {
+            "node": "Вибираю потрібні рядки для АКОС і додаю kpi_id для Канади",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "збираю місячний ТАКОС загальний CA1": {
+      "main": [
+        [
+          {
+            "node": "Вибираю потрібні рядки для ТАКОС і додаю kpi_id для Канади",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "збираю місячний LTFS загальний CA1": {
+      "main": [
+        [
+          {
+            "node": "Вибираю потрібні рядки для LTFS і додаю kpi_id для Канади",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "збираю місячний OVERHEAD SPEND загальний CA1": {
+      "main": [
+        [
+          {
+            "node": "Вибираю потрібні рядки для Overhead spend і додаю kpi_id для Канади",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "збираю місячний АКОС по групі товару1": {
+      "main": [
+        [
+          {
+            "node": "Вибираю потрібні рядки для АКОС і додаю kpi_id по категорії",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "збираю місячний TАКОС по групі товару USA1": {
+      "main": [
+        [
+          {
+            "node": "Вибираю потрібні рядки для ТАКОС і додаю kpi_id по категорії",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "збираю місячний LTFS по групі товару USA1": {
+      "main": [
+        [
+          {
+            "node": "Вибираю потрібні рядки для LTFS і додаю kpi_id по категорії",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "збираю місячний OVERHEAD SPEND по групі товару USA1": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "збираю місячний АКОС по продукту1": {
+      "main": [
+        [
+          {
+            "node": "Вибираю потрібні рядки для АКОС і додаю kpi_id по товару",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "збираю місячний ТАКОС по продукту USA1": {
+      "main": [
+        [
+          {
+            "node": "Вибираю потрібні рядки для ТАКОС і додаю kpi_id по товару",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "збираю місячний LTFS по продукту1": {
+      "main": [
+        [
+          {
+            "node": "Вибираю потрібні рядки для LTFS і додаю kpi_id по товару",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "збираю місячний OVERHEAD SPEND по продукту1": {
+      "main": [
+        [
+          {
+            "node": "Вибираю потрібні рядки для Overhead spend і додаю kpi_id по товару",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "збираю місячний АКОС по ppc_id1": {
+      "main": [
+        [
+          {
+            "node": "Вибираю потрібні рядки для АКОС і додаю kpi_id по ppc_id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "збираю місячний TАКОС по ppc_id1": {
+      "main": [
+        [
+          {
+            "node": "Вибираю потрібні рядки для ТАКОС і додаю kpi_id по ppc_id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "збираю місячний LTFS по ppc_id1": {
+      "main": [
+        [
+          {
+            "node": "Вибираю потрібні рядки для LTFS і додаю kpi_id по ppc_id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "збираю місячний OVERHEAD SPEND по ppc_id1": {
+      "main": [
+        [
+          {
+            "node": "Вибираю потрібні рядки для Overhead spend і додаю kpi_id по ppc_id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "96309b2a-ff25-416d-bc9b-b85ae911972d",
+  "meta": {
+    "instanceId": "730ac85b61a2f867072e936d03cc73b3080b90a6fe3cc33df7687e90a6bfd1b9"
+  },
+  "id": "1KcaWxkP5suXC7uD",
+  "tags": []
+}
