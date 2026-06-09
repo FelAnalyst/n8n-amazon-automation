@@ -1,0 +1,1272 @@
+{
+  "name": "[USA] Синхронизация отчета FBA Inventory с PostgreSQL",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "={{ $('Execute Workflow').item.json.url + \"queue/result/\"}}{{ $json.data.task_id }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "=x-api-key",
+              "value": "={{ $('Execute Workflow').item.json.api_key }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1232,
+        1504
+      ],
+      "id": "7ef88056-1c8d-4e2b-acd8-2cebbcb638ad",
+      "name": "проверка очереди",
+      "retryOnFail": false,
+      "waitBetweenTries": 5000,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Execute Workflow').item.json.url + \"usa/reports/queue/status/\"}}{{ $('проверка очереди').item.json.result.report_id}}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "=x-api-key",
+              "value": "={{ $('Execute Workflow').item.json.api_key }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1600,
+        1504
+      ],
+      "id": "fa29c2d0-2bbc-4679-a56e-5f238b1c6977",
+      "name": "проверка статуса готовности отчёта",
+      "retryOnFail": false,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1632,
+        1120
+      ],
+      "id": "92f08cf1-8a1e-4e28-9129-434e22556705",
+      "name": "игнор, цикл I продолжает крутиться"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1824,
+        1984
+      ],
+      "id": "a793cf44-94ae-4ba1-917a-6983687bbe20",
+      "name": " игнор, цикл III продолжает крутиться"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        2784,
+        1488
+      ],
+      "id": "87add37d-6cb8-43e5-b1eb-8840298350f2",
+      "name": " игнор, цикл II продолжает крутиться"
+    },
+    {
+      "parameters": {
+        "errorMessage": "Workflow failed with timeout error while waiting for queue results"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1632,
+        1280
+      ],
+      "id": "cffc4d7b-bc8a-450e-927c-22a918f572d9",
+      "name": "TIME OUT!"
+    },
+    {
+      "parameters": {
+        "errorMessage": "Workflow failed with timeout error while waiting for queue results"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        2704,
+        1664
+      ],
+      "id": "2a396e86-bd73-4fde-87a2-44a2c093a1ce",
+      "name": " TIME OUT!"
+    },
+    {
+      "parameters": {
+        "errorMessage": "Workflow failed with timeout error while waiting for queue results"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1824,
+        2160
+      ],
+      "id": "9961c328-fdef-4e74-9408-9f7496c6f2f6",
+      "name": "  TIME OUT!"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Execute Workflow').item.json.url + \"queue/result/\" }}{{ $json.data.task_id }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "=x-api-key",
+              "value": "={{ $('Execute Workflow').item.json.api_key }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1920,
+        1504
+      ],
+      "id": "2d314554-2f9c-4e3a-ac22-700d14c79335",
+      "name": "проверка очереди ",
+      "retryOnFail": false,
+      "waitBetweenTries": 5000,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Execute Workflow').item.json.url + \"queue/result/\"}}{{ $json.data.task_id }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "=x-api-key",
+              "value": "={{ $('Execute Workflow').item.json.api_key }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        848,
+        2000
+      ],
+      "id": "aaea005c-4708-4b69-b127-3d23ff2934aa",
+      "name": "проверка очереди  ",
+      "retryOnFail": false,
+      "waitBetweenTries": 5000,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Execute Workflow').item.json.url + \"usa/reports/queue/download/\"}}{{ $json.result.report_id }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "=x-api-key",
+              "value": "={{ $('Execute Workflow').item.json.api_key }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        656,
+        2016
+      ],
+      "id": "b5373681-a5bb-4930-93b4-bf644225dfb3",
+      "name": "запрос на скачивание",
+      "retryOnFail": false,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "errorMessage": "=ERROR! error={{ $json.error.status }}, message={{ $json.error.message }}, stack={{ $json.error.stack }}"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1104,
+        1232
+      ],
+      "id": "fd890cd9-38cb-4e11-bd40-d1196266ff2b",
+      "name": "Stop and Error"
+    },
+    {
+      "parameters": {
+        "errorMessage": "Amazon returned report status FATAL.To be analyzed by manager"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        2528,
+        1760
+      ],
+      "id": "79759ee4-c29d-4450-96b9-49624b74faf9",
+      "name": "status=FATAL"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        2528,
+        1904
+      ],
+      "id": "5ac31436-44f8-46d9-8abb-f9cfa1258bdd",
+      "name": "CANCELLED.останавливаем workflow"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "24e41933-8ce3-4991-93f8-880926ccf45f",
+              "leftValue": "={{ $json.error.status }}",
+              "rightValue": 404,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2048,
+        1264
+      ],
+      "id": "1d37acb2-64e7-4912-88da-f1a4aa302cfe",
+      "name": "ошибка 404? "
+    },
+    {
+      "parameters": {
+        "errorMessage": "=ERROR! error={{ $json.error.status }}, message={{ $json.error.message }}, stack={{ $json.error.stack }}"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1344,
+        2304
+      ],
+      "id": "0b94c69f-eaef-4614-9851-41cea8289598",
+      "name": "Stop and Error   "
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "24e41933-8ce3-4991-93f8-880926ccf45f",
+              "leftValue": "={{ $json.error.status }}",
+              "rightValue": 404,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1136,
+        2016
+      ],
+      "id": "43ba213d-7073-4a66-abac-003bd57ab4db",
+      "name": "ошибка 404?  "
+    },
+    {
+      "parameters": {
+        "errorMessage": "=ERROR! error={{ $json.error.status }}, message={{ $json.error.message }}, stack={{ $json.error.stack }}"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        2384,
+        1040
+      ],
+      "id": "5ac8ac13-b260-426c-8475-314e8a5b8a50",
+      "name": "Stop and Error  "
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.result.status }}",
+                    "rightValue": "IN_PROGRESS",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "0bae5f30-5ca6-4303-a8a0-886e8c5cf091"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "IN_PROGRESS"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "dbaf4b58-e249-4b38-9a63-21d8b4092fa7",
+                    "leftValue": "={{ $json.result.status }}",
+                    "rightValue": "IN_QUEUE",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "IN_QUEUE"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "d54a8aea-a317-4ce5-9a28-6c88cfbe4d8d",
+                    "leftValue": "={{ $json.result.status }}",
+                    "rightValue": "FATAL",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "FATAL"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "449af683-c715-4d31-a623-86466901e721",
+                    "leftValue": "={{ $json.result.status }}",
+                    "rightValue": "CANCELLED",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "CANCELLED"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "80a90919-7fe6-40ca-bc1b-bafaf424a35c",
+                    "leftValue": "={{ $json.result.status }}",
+                    "rightValue": "DONE",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "DONE"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        2128,
+        1440
+      ],
+      "id": "89ba66d1-55bb-4dff-badf-d6c7bb3be00b",
+      "name": "in_progress, in_queue, done, fatal, cancelled?"
+    },
+    {
+      "parameters": {
+        "unit": "minutes"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1008,
+        1504
+      ],
+      "id": "4f8e2c92-a272-4b5e-8257-4cf0bb56826a",
+      "name": "Wait - 5 мин.",
+      "webhookId": "a8a6aa81-b1ec-4d8c-a6fc-eeb7df81b213"
+    },
+    {
+      "parameters": {
+        "amount": 2,
+        "unit": "minutes"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1360,
+        2000
+      ],
+      "id": "822fcb18-c3dd-49ce-bdd2-44381916fd53",
+      "name": "Wait - 2 мин.",
+      "webhookId": "4fbeead6-d2c4-4428-a85f-65068b8eb5c3"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "24e41933-8ce3-4991-93f8-880926ccf45f",
+              "leftValue": "={{ $json.error.status }}",
+              "rightValue": 404,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        928,
+        1200
+      ],
+      "id": "6cbf5616-33ed-4702-b6a7-9889d3da5e86",
+      "name": "ошибка 404?"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a2c45362-1eb1-49cf-a738-d95607e829da",
+              "leftValue": "={{ $runIndex}}",
+              "rightValue": 144,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1392,
+        1200
+      ],
+      "id": "d28d4b82-3ced-4464-ac2f-d5241fa48d66",
+      "name": "проверка на time out",
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "8a5e5eb1-1afe-4e0a-893f-96f0dac62d21",
+              "leftValue": "={{ $runIndex}}",
+              "rightValue": 1440,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2592,
+        1504
+      ],
+      "id": "9becaba6-11c3-4a51-8ef1-e3fc4c8724a4",
+      "name": "проверка на time out "
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3d1cd264-b219-479c-adf6-e53cab6a5556",
+              "leftValue": "={{ $runIndex}}",
+              "rightValue": 360,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1584,
+        2000
+      ],
+      "id": "87b23e92-1e3e-4ec5-b8cf-083e73dd3c90",
+      "name": "проверка на time out  "
+    },
+    {
+      "parameters": {
+        "content": "I. ЗАПРОС ОТЧЁТА",
+        "height": 320,
+        "width": 820
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        672,
+        1440
+      ],
+      "id": "3de133de-9ae5-4f1f-9591-209a3d6e7e0c",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "II. ПРОВЕРКА СТАТУСА ОТЧЁТА",
+        "height": 320,
+        "width": 1000
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1584,
+        1440
+      ],
+      "id": "f24dc0a4-fd7e-4d94-af33-ffd59c19c603",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "III. СКАЧИВАНИЕ",
+        "height": 320,
+        "width": 884
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        608,
+        1904
+      ],
+      "id": "70d896bb-9ebd-4b1d-a4f5-07ec04f97fc3",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "20 12 * * *"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        288,
+        1504
+      ],
+      "id": "7f95e65e-1c8e-4e20-a3c3-fcc4f7328d65",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$json.url + \"usa/reports/queue/request/fba-inventory\"}}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "=x-api-key",
+              "value": "={{ $json.api_key }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        752,
+        1504
+      ],
+      "id": "59e22a18-bc4c-48ed-b118-9d30d31737a2",
+      "name": "Запрос на генерацию отчета",
+      "retryOnFail": false,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.result.url}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1520,
+        1808
+      ],
+      "id": "ad6fea82-199d-4f33-8580-ce88773efe37",
+      "name": "Скачивание отчета",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "amount": 45
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2384,
+        1504
+      ],
+      "id": "532c0bf6-1810-4992-af0e-a7401c89a223",
+      "name": "Wait - 45 сек.",
+      "webhookId": "4fbeead6-d2c4-4428-a85f-65068b8eb5c3"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1760,
+        1504
+      ],
+      "id": "ba888f5d-c526-439c-9c2e-c5ba0e804df0",
+      "name": "Wait - 5 сек",
+      "webhookId": "8fcc7ebb-2eb3-4ca7-8b49-7d214dc9eaa2"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "sgGlTfnLfzXsuIiQ",
+          "mode": "list",
+          "cachedResultName": "Sub-Workflow  security postgre"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        528,
+        1504
+      ],
+      "id": "46791294-1082-420d-99ae-8a24afc40998",
+      "name": "Execute Workflow"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO \"sp-api-reports\".fba_inventory_reports_us (\n  snapshot_date,\n  sku,\n  fnsku,\n  asin,\n  product_name,\n  \"condition\",\n  available,\n  pending_removal_quantity,\n  inv_age_0_to_90_days,\n  inv_age_91_to_180_days,\n  inv_age_181_to_270_days,\n  inv_age_271_to_365_days,\n  inv_age_366_to_455_days,\n  inv_age_456_plus_days,\n  currency,\n  units_shipped_t7,\n  units_shipped_t30,\n  units_shipped_t60,\n  units_shipped_t90,\n  alert,\n  your_price,\n  sales_price,\n  lowest_price_new_plus_shipping,\n  lowest_price_used,\n  recommended_action,\n  deprecated_healthy_inventory_level,\n  recommended_sales_price,\n  recommended_sale_duration_days,\n  recommended_removal_quantity,\n  estimated_cost_savings_of_recommended_actions,\n  sell_through,\n  item_volume,\n  volume_unit_measurement,\n  storage_type,\n  storage_volume,\n  product_group,\n  sales_rank,\n  days_of_supply,\n  estimated_excess_quantity,\n  weeks_of_cover_t30,\n  weeks_of_cover_t90,\n  featuredoffer_price,\n  sales_shipped_last_7_days,\n  sales_shipped_last_30_days,\n  sales_shipped_last_60_days,\n  sales_shipped_last_90_days,\n  inv_age_0_to_30_days,\n  inv_age_31_to_60_days,\n  inv_age_61_to_90_days,\n  inv_age_181_to_330_days,\n  inv_age_331_to_365_days,\n  estimated_storage_cost_next_month,\n  inbound_quantity,\n  inbound_working,\n  inbound_shipped,\n  inbound_received,\n  total_reserved_quantity,\n  unfulfillable_quantity,\n  quantity_to_be_charged_ais_271_300_days,\n  estimated_ais_271_300_days,\n  quantity_to_be_charged_ais_301_330_days,\n  estimated_ais_301_330_days,\n  quantity_to_be_charged_ais_331_365_days,\n  estimated_ais_331_365_days,\n      quantity_to_be_charged_ais_366_455_days,\n  estimated_ais_366_455_days,\n    quantity_to_be_charged_ais_456_plus_days,\n  estimated_ais_456_plus_days,\n  historical_days_of_supply,\n  last_updated_date_historical_days_of_supply,\n  low_inventory_fee_exempted,\n  low_inventory_fee_applied_this_week,\n  short_term_historical_days_of_supply,\n  long_term_historical_days_of_supply,\n  inventory_age_snapshot_date,\n  inventory_supply_fba,\n  reserved_fc_transfer,\n  reserved_fc_processing,\n  reserved_customer_order,\n  total_days_of_supply,\n  no_sale_last_6_months,\n  quantity_to_be_charged_ais_181_210_days,\n  estimated_ais_181_210_days,\n  quantity_to_be_charged_ais_211_240_days,\n  estimated_ais_211_240_days,\n  quantity_to_be_charged_ais_241_270_days,\n  estimated_ais_241_270_days,\n  fba_minimum_inventory_level,\n  fba_inventory_level_health_status,\n  recommended_ship_in_quantity,\n  recommended_ship_in_date,\n  report_date\n)\nVALUES (\n  '{{ $json['snapshot-date'] }}',\n  '{{ $json.sku }}',\n  '{{ $json.fnsku }}',\n  '{{ $json.asin }}',\n  {{ $json[\"product-name\"] ? `'${$json[\"product-name\"].replace(/'/g, \"''\")}'` : 'NULL' }},\n  {{ $json[\"condition\"] ? `'${$json[\"condition\"]}'` : 'NULL' }},\n  {{ $json.available ?? 0 }},\n  {{ $json['pending-removal-quantity'] ?? 0 }},\n  {{ $json['inv-age-0-to-90-days'] ?? 0 }},\n  {{ $json['inv-age-91-to-180-days'] ?? 0 }},\n  {{ $json['inv-age-181-to-270-days'] ?? 0 }},\n  {{ $json['inv-age-271-to-365-days'] ?? 0 }},\n  {{ $json['inv-age-366-to-455-days']  ?? 0 }},\n  {{ $json['inv-age-456-plus-days']  ?? 0 }},\n  '{{ $json.currency ?? 'USD' }}',\n  {{ $json['units-shipped-t7'] ?? 'NULL' }},\n  {{ $json['units-shipped-t30'] ?? 'NULL' }},\n  {{ $json['units-shipped-t60'] ?? 'NULL' }},\n  {{ $json['units-shipped-t90'] ?? 'NULL' }},\n  {{ $json[\"alert\"] ? `'${$json[\"alert\"]}'` : 'NULL' }},\n  {{ $json['your-price'] ?? 'NULL' }},\n  {{ $json['sales-price'] ?? 'NULL' }},\n  {{ $json['lowest-price-new-plus-shipping'] ?? 0 }},\n  {{ $json['lowest-price-used'] ?? 0 }},\n  '{{ $json['recommended-action'] ?? 'Unknown' }}',\n  {{ $json[\"DEPRECATED healthy-inventory-level\"] ? `'${$json[\"DEPRECATED healthy-inventory-level\"]}'` : 'NULL' }},\n  {{ $json['recommended-sales-price'] ?? 'NULL' }},\n  {{ $json['recommended-sale-duration-days'] ?? 0 }},\n  {{ $json['recommended-removal-quantity'] ?? 0 }},\n  {{ $json['estimated-cost-savings-of-recommended-actions'] ?? 'NULL' }},\n  {{ $json['sell-through'] ?? 0 }},\n  {{ $json['item-volume'] ?? 0 }},\n  '{{ $json['volume-unit-measurement'] ?? 'cubic feet' }}',\n  {{ $json[\"storage-type\"] ? `'${$json[\"storage-type\"]}'` : 'NULL' }},\n  {{ $json['storage-volume'] ?? 0 }},\n  {{ $json['product-group'] ? `'${$json['product-group']}'` : 'NULL' }},\n  {{ $json['sales-rank'] ?? 'NULL' }},\n  {{ $json['days-of-supply'] ?? 'NULL' }},\n  {{ $json['estimated-excess-quantity'] ?? 0 }},\n  {{ $json['weeks-of-cover-t30'] ?? 'NULL' }},\n  {{ $json['weeks-of-cover-t90'] ?? 'NULL' }},\n  {{ $json['featuredoffer-price'] ?? 'NULL' }},\n  {{ $json['sales-shipped-last-7-days'] ?? 'NULL' }},\n  {{ $json['sales-shipped-last-30-days'] ?? 'NULL' }},\n  {{ $json['sales-shipped-last-60-days'] ?? 'NULL' }},\n  {{ $json['sales-shipped-last-90-days'] ?? 'NULL' }},\n  {{ $json['inv-age-0-to-30-days'] ?? 0 }},\n  {{ $json['inv-age-31-to-60-days'] ?? 0 }},\n  {{ $json['inv-age-61-to-90-days'] ?? 0 }},\n  {{ $json['inv-age-181-to-330-days'] ?? 0 }},\n  {{ $json['inv-age-331-to-365-days'] ?? 0 }},\n  {{ $json['estimated-storage-cost-next-month'] ?? 'NULL' }},\n  {{ $json['inbound-quantity'] ?? 0 }},\n  {{ $json['inbound-working'] ?? 'NULL' }},\n  {{ $json['inbound-shipped'] ?? 'NULL' }},\n  {{ $json['inbound-received'] ?? 'NULL' }},\n  {{ $json['Total Reserved Quantity'] ?? 'NULL' }},\n  {{ $json['unfulfillable-quantity'] ?? 'NULL' }},\n  {{ $json['quantity-to-be-charged-ais-271-300-days'] ?? 'NULL' }},\n  {{ $json['estimated-ais-271-300-days'] ?? 'NULL' }},\n  {{ $json['quantity-to-be-charged-ais-301-330-days'] ?? 'NULL' }},\n  {{ $json['estimated-ais-301-330-days'] ?? 'NULL' }},\n  {{ $json['quantity-to-be-charged-ais-331-365-days'] ?? 'NULL' }},\n  {{ $json['estimated-ais-331-365-days'] ?? 'NULL' }},\n  {{ $json['quantity-to-be-charged-ais-366-455-days'] ?? 0 }},\n  {{ $json['estimated-ais-366-455-days'] ?? 0 }},\n    {{ $json['quantity-to-be-charged-ais-456-plus-days'] ?? 0 }},\n  {{ $json['estimated-ais-456-plus-days'] ?? 0 }},\n  \n  {{ $json['historical-days-of-supply'] ?? 'NULL' }},\n  {{ $json[\"Last updated date for Historical Days of Supply\"] ? `'${$json[\"Last updated date for Historical Days of Supply\"]}'` : 'NULL' }},\n  {{ $json[\"Exempted from Low-Inventory-Level fee?\"] ? `'${$json[\"Exempted from Low-Inventory-Level fee?\"]}'` : 'NULL' }},\n  {{ $json[\"Low-Inventory-Level fee applied in current week?\"] ? `'${$json[\"Low-Inventory-Level fee applied in current week?\"]}'` : 'NULL' }},\n  {{ $json['Short term historical days of supply'] ?? 'NULL' }},\n  {{ $json['Long term historical days of supply'] ?? 'NULL' }},\n  {{ $json[\"Inventory age snapshot date\"] ? `'${$json[\"Inventory age snapshot date\"]}'` : 'NULL' }},\n  {{ $json['Inventory Supply at FBA'] ?? 'NULL' }},\n  {{ $json['Reserved FC Transfer'] ?? 'NULL' }},\n  {{ $json['Reserved FC Processing'] ?? 'NULL' }},\n  {{ $json['Reserved Customer Order'] ?? 'NULL' }},\n  {{ $json['Total Days of Supply (including units from open shipments)'] ?? 'NULL' }},\n  {{ $json[\"no-sale-last-6-months\"] ? `'${$json[\"no-sale-last-6-months\"]}'` : 'NULL' }},\n  {{ $json['quantity-to-be-charged-ais-181-210-days'] ?? 'NULL' }},\n  {{ $json['estimated-ais-181-210-days'] ?? 'NULL' }},\n  {{ $json['quantity-to-be-charged-ais-211-240-days'] ?? 'NULL' }},\n  {{ $json['estimated-ais-211-240-days'] ?? 'NULL' }},\n  {{ $json['quantity-to-be-charged-ais-241-270-days'] ?? 'NULL' }},\n  {{ $json['estimated-ais-241-270-days'] ?? 'NULL' }},\n  {{ $json['fba-minimum-inventory-level'] ?? 'NULL' }},\n  {{ $json[\"fba-inventory-level-health-status\"] ? `'${$json[\"fba-inventory-level-health-status\"]}'` : 'NULL' }},\n  {{ $json['Recommended ship-in quantity'] ?? 'NULL' }},\n  {{ $json[\"Recommended ship-in date\"] ? `'${$json[\"Recommended ship-in date\"]}'` : 'NULL' }},\n  '{{ new Date().toISOString().slice(0, 10) }}'\n)\nON CONFLICT ON CONSTRAINT fba_inventory_reports_us_pk DO UPDATE\nSET\n  snapshot_date = EXCLUDED.snapshot_date,\n  product_name = EXCLUDED.product_name,\n  \"condition\" = EXCLUDED.\"condition\",\n  available = EXCLUDED.available,\n  pending_removal_quantity = EXCLUDED.pending_removal_quantity,\n  inv_age_0_to_90_days = EXCLUDED.inv_age_0_to_90_days,\n  inv_age_91_to_180_days = EXCLUDED.inv_age_91_to_180_days,\n  inv_age_181_to_270_days = EXCLUDED.inv_age_181_to_270_days,\n  inv_age_271_to_365_days = EXCLUDED.inv_age_271_to_365_days,\n  inv_age_366_to_455_days = EXCLUDED.inv_age_366_to_455_days,\n  inv_age_456_plus_days = EXCLUDED.inv_age_456_plus_days,\n  currency = EXCLUDED.currency,\n  units_shipped_t7 = EXCLUDED.units_shipped_t7,\n  units_shipped_t30 = EXCLUDED.units_shipped_t30,\n  units_shipped_t60 = EXCLUDED.units_shipped_t60,\n  units_shipped_t90 = EXCLUDED.units_shipped_t90,\n  alert = EXCLUDED.alert,\n  your_price = EXCLUDED.your_price,\n  sales_price = EXCLUDED.sales_price,\n  lowest_price_new_plus_shipping = EXCLUDED.lowest_price_new_plus_shipping,\n  lowest_price_used = EXCLUDED.lowest_price_used,\n  recommended_action = EXCLUDED.recommended_action,\n  deprecated_healthy_inventory_level = EXCLUDED.deprecated_healthy_inventory_level,\n  recommended_sales_price = EXCLUDED.recommended_sales_price,\n  recommended_sale_duration_days = EXCLUDED.recommended_sale_duration_days,\n  recommended_removal_quantity = EXCLUDED.recommended_removal_quantity,\n  estimated_cost_savings_of_recommended_actions = EXCLUDED.estimated_cost_savings_of_recommended_actions,\n  sell_through = EXCLUDED.sell_through,\n  item_volume = EXCLUDED.item_volume,\n  volume_unit_measurement = EXCLUDED.volume_unit_measurement,\n  storage_type = EXCLUDED.storage_type,\n  storage_volume = EXCLUDED.storage_volume,\n  product_group = EXCLUDED.product_group,\n  sales_rank = EXCLUDED.sales_rank,\n  days_of_supply = EXCLUDED.days_of_supply,\n  estimated_excess_quantity = EXCLUDED.estimated_excess_quantity,\n  weeks_of_cover_t30 = EXCLUDED.weeks_of_cover_t30,\n  weeks_of_cover_t90 = EXCLUDED.weeks_of_cover_t90,\n  featuredoffer_price = EXCLUDED.featuredoffer_price,\n  sales_shipped_last_7_days = EXCLUDED.sales_shipped_last_7_days,\n  sales_shipped_last_30_days = EXCLUDED.sales_shipped_last_30_days,\n  sales_shipped_last_60_days = EXCLUDED.sales_shipped_last_60_days,\n  sales_shipped_last_90_days = EXCLUDED.sales_shipped_last_90_days,\n  inv_age_0_to_30_days = EXCLUDED.inv_age_0_to_30_days,\n  inv_age_31_to_60_days = EXCLUDED.inv_age_31_to_60_days,\n  inv_age_61_to_90_days = EXCLUDED.inv_age_61_to_90_days,\n  inv_age_181_to_330_days = EXCLUDED.inv_age_181_to_330_days,\n  inv_age_331_to_365_days = EXCLUDED.inv_age_331_to_365_days,\n  estimated_storage_cost_next_month = EXCLUDED.estimated_storage_cost_next_month,\n  inbound_quantity = EXCLUDED.inbound_quantity,\n  inbound_working = EXCLUDED.inbound_working,\n  inbound_shipped = EXCLUDED.inbound_shipped,\n  inbound_received = EXCLUDED.inbound_received,\n  total_reserved_quantity = EXCLUDED.total_reserved_quantity,\n  unfulfillable_quantity = EXCLUDED.unfulfillable_quantity,\n  quantity_to_be_charged_ais_271_300_days = EXCLUDED.quantity_to_be_charged_ais_271_300_days,\n  estimated_ais_271_300_days = EXCLUDED.estimated_ais_271_300_days,\n  quantity_to_be_charged_ais_301_330_days = EXCLUDED.quantity_to_be_charged_ais_301_330_days,\n  estimated_ais_301_330_days = EXCLUDED.estimated_ais_301_330_days,\n  quantity_to_be_charged_ais_331_365_days = EXCLUDED.quantity_to_be_charged_ais_331_365_days,\n  estimated_ais_331_365_days = EXCLUDED.estimated_ais_331_365_days,\nquantity_to_be_charged_ais_366_455_days = EXCLUDED.quantity_to_be_charged_ais_366_455_days,\n  estimated_ais_366_455_days = EXCLUDED.estimated_ais_366_455_days,\nquantity_to_be_charged_ais_456_plus_days = EXCLUDED.quantity_to_be_charged_ais_456_plus_days,\n  estimated_ais_456_plus_days = EXCLUDED.estimated_ais_456_plus_days,\n\n  historical_days_of_supply = EXCLUDED.historical_days_of_supply,\n  last_updated_date_historical_days_of_supply = EXCLUDED.last_updated_date_historical_days_of_supply,\n  low_inventory_fee_exempted = EXCLUDED.low_inventory_fee_exempted,\n  low_inventory_fee_applied_this_week = EXCLUDED.low_inventory_fee_applied_this_week,\n  short_term_historical_days_of_supply = EXCLUDED.short_term_historical_days_of_supply,\n  long_term_historical_days_of_supply = EXCLUDED.long_term_historical_days_of_supply,\n  inventory_age_snapshot_date = EXCLUDED.inventory_age_snapshot_date,\n  inventory_supply_fba = EXCLUDED.inventory_supply_fba,\n  reserved_fc_transfer = EXCLUDED.reserved_fc_transfer,\n  reserved_fc_processing = EXCLUDED.reserved_fc_processing,\n  reserved_customer_order = EXCLUDED.reserved_customer_order,\n  total_days_of_supply = EXCLUDED.total_days_of_supply,\n  no_sale_last_6_months = EXCLUDED.no_sale_last_6_months,\n  quantity_to_be_charged_ais_181_210_days = EXCLUDED.quantity_to_be_charged_ais_181_210_days,\n  estimated_ais_181_210_days = EXCLUDED.estimated_ais_181_210_days,\n  quantity_to_be_charged_ais_211_240_days = EXCLUDED.quantity_to_be_charged_ais_211_240_days,\n  estimated_ais_211_240_days = EXCLUDED.estimated_ais_211_240_days,\n  quantity_to_be_charged_ais_241_270_days = EXCLUDED.quantity_to_be_charged_ais_241_270_days,\n  estimated_ais_241_270_days = EXCLUDED.estimated_ais_241_270_days,\n  fba_minimum_inventory_level = EXCLUDED.fba_minimum_inventory_level,\n  fba_inventory_level_health_status = EXCLUDED.fba_inventory_level_health_status,\n  recommended_ship_in_quantity = EXCLUDED.recommended_ship_in_quantity,\n  recommended_ship_in_date = EXCLUDED.recommended_ship_in_date;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1760,
+        1808
+      ],
+      "id": "f3cebe62-6345-4058-998a-9ed3e5d86766",
+      "name": "Postgres",
+      "credentials": {
+        "postgres": {
+          "id": "YMbDdiDzQYbv6xCL",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2288,
+        1248
+      ],
+      "id": "a2c4cfca-f8dd-4d56-b31e-3c7f39eb3285",
+      "name": "Wait - 30 сек.1",
+      "webhookId": "4fbeead6-d2c4-4428-a85f-65068b8eb5c3"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "8a5e5eb1-1afe-4e0a-893f-96f0dac62d21",
+              "leftValue": "={{ $runIndex}}",
+              "rightValue": 1440,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2512,
+        1248
+      ],
+      "id": "6e04abf5-3022-4e07-9cfc-8d3b0c2142bb",
+      "name": "проверка на time out2"
+    },
+    {
+      "parameters": {
+        "errorMessage": "Workflow failed with timeout error while waiting for queue results"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        2736,
+        1264
+      ],
+      "id": "843286f3-8a1c-4f1c-ba04-05fd8ed855bb",
+      "name": " TIME OUT!1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "проверка очереди": {
+      "main": [
+        [
+          {
+            "node": "проверка статуса готовности отчёта",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "проверка на time out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверка статуса готовности отчёта": {
+      "main": [
+        [
+          {
+            "node": "Wait - 5 сек",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверка очереди ": {
+      "main": [
+        [
+          {
+            "node": "in_progress, in_queue, done, fatal, cancelled?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ошибка 404? ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверка очереди  ": {
+      "main": [
+        [
+          {
+            "node": "Скачивание отчета",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ошибка 404?  ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "запрос на скачивание": {
+      "main": [
+        [
+          {
+            "node": "проверка очереди  ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ошибка 404? ": {
+      "main": [
+        [
+          {
+            "node": "Wait - 30 сек.1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Stop and Error  ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ошибка 404?  ": {
+      "main": [
+        [
+          {
+            "node": "Wait - 2 мин.",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Stop and Error   ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "in_progress, in_queue, done, fatal, cancelled?": {
+      "main": [
+        [
+          {
+            "node": "Wait - 45 сек.",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait - 45 сек.",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "status=FATAL",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "CANCELLED.останавливаем workflow",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "запрос на скачивание",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait - 5 мин.": {
+      "main": [
+        [
+          {
+            "node": "проверка очереди",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait - 2 мин.": {
+      "main": [
+        [
+          {
+            "node": "проверка на time out  ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ошибка 404?": {
+      "main": [
+        [
+          {
+            "node": "Wait - 5 мин.",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Stop and Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверка на time out": {
+      "main": [
+        [
+          {
+            "node": "игнор, цикл I продолжает крутиться",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "ошибка 404?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "TIME OUT!",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверка на time out ": {
+      "main": [
+        [
+          {
+            "node": " игнор, цикл II продолжает крутиться",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "проверка статуса готовности отчёта",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": " TIME OUT!",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверка на time out  ": {
+      "main": [
+        [
+          {
+            "node": " игнор, цикл III продолжает крутиться",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "проверка очереди  ",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "  TIME OUT!",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Запрос на генерацию отчета": {
+      "main": [
+        [
+          {
+            "node": "Wait - 5 мин.",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Скачивание отчета": {
+      "main": [
+        [
+          {
+            "node": "Postgres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait - 45 сек.": {
+      "main": [
+        [
+          {
+            "node": "проверка на time out ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait - 5 сек": {
+      "main": [
+        [
+          {
+            "node": "проверка очереди ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow": {
+      "main": [
+        [
+          {
+            "node": "Запрос на генерацию отчета",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait - 30 сек.1": {
+      "main": [
+        [
+          {
+            "node": "проверка на time out2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверка на time out2": {
+      "main": [
+        [
+          {
+            "node": "проверка очереди ",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": " TIME OUT!1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "timezone": "Europe/Berlin",
+    "timeSavedMode": "fixed",
+    "binaryMode": "separate",
+    "availableInMCP": false,
+    "errorWorkflow": "Dnv0N5dFFryWPYMw"
+  },
+  "versionId": "540f28c0-391e-487a-8908-a1d94f46f47e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "730ac85b61a2f867072e936d03cc73b3080b90a6fe3cc33df7687e90a6bfd1b9"
+  },
+  "id": "LnzC9x9NorwXVddh",
+  "tags": [
+    {
+      "updatedAt": "2025-03-24T12:42:56.325Z",
+      "createdAt": "2025-03-24T12:42:56.325Z",
+      "id": "0CCMPva2SOzbITmq",
+      "name": "API"
+    },
+    {
+      "updatedAt": "2025-03-24T12:41:20.789Z",
+      "createdAt": "2025-03-24T12:41:20.789Z",
+      "id": "8Cf3fz6LoT9n6HY5",
+      "name": "AMAZON_REPORTS"
+    },
+    {
+      "updatedAt": "2025-03-24T12:49:29.231Z",
+      "createdAt": "2025-03-24T12:49:29.231Z",
+      "id": "fypaoloQwB6gNJkF",
+      "name": "USA"
+    }
+  ]
+}
