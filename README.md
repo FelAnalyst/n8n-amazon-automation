@@ -10,9 +10,9 @@ Amazon's SP-API doesn't return reports instantly — you request a report, then 
 
 | File | Description |
 |---|---|
-| `amazon-reports-sync.json` | Requests Amazon reports, waits for readiness, downloads and saves to PostgreSQL |
-| `inventory-sync.json` | Syncs FBA inventory data across multiple marketplaces (USA, Canada) |
-| `shipments-ingest.json` | Ingests shipment updates from an internal API into PostgreSQL |
+|`[KPI] ACOS, TACOS, LTFS, Overhead Postgre.json` | calculate ACOS, TACOS, LTFS, Overhead Storage и Waste Spend |
+|`amazon-reports-sync.json` | Requests Amazon reports, waits for readiness, downloads and saves to PostgreSQL |
+|`shipments-ingest.json` | Ingests shipment updates from an internal API into PostgreSQL |
 
 ## Key features
 
