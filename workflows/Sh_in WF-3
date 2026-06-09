@@ -1,0 +1,980 @@
+{
+  "name": "Shipment_ingest",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "sgGlTfnLfzXsuIiQ",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/sgGlTfnLfzXsuIiQ",
+          "cachedResultName": "Sub-Workflow  security postgre"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        160,
+        16
+      ],
+      "id": "571e1185-160d-4552-a7af-90208e932937",
+      "name": "Execute Workflow"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "sgGlTfnLfzXsuIiQ",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/sgGlTfnLfzXsuIiQ",
+          "cachedResultName": "Sub-Workflow  security postgre"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        144,
+        784
+      ],
+      "id": "11714824-1fcf-4b04-9b82-dae403f786d6",
+      "name": "Execute Workflow1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$json.url + \"na/shipments/ingest-updated-after\"}}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "last_updated_after",
+              "value": "={{$today.minus(14,'days').format('yyyy-MM-dd')}}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "=x-api-key",
+              "value": "={{ $json.api_key }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        352,
+        16
+      ],
+      "id": "04a116e6-e9c2-48e0-ab00-a93deefe5025",
+      "name": "Запрос ingest export for USA, CA (update after date)",
+      "retryOnFail": false,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$json.url + \"na/shipments/ingest-by-status\"}}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "status",
+              "value": "WORKING"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "=x-api-key",
+              "value": "={{ $json.api_key }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        448,
+        1680
+      ],
+      "id": "b7ca164c-abe4-4127-aec4-91d93a14485b",
+      "name": "Запрос ingest export for USA, CA (for status WORKING)",
+      "retryOnFail": false,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$json.url + \"na/shipments/ingest-by-status\"}}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "status",
+              "value": "SHIPPED"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "=x-api-key",
+              "value": "={{ $json.api_key }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        448,
+        432
+      ],
+      "id": "23f559ba-2e1b-4807-bbbb-d069cf96790b",
+      "name": "Запрос ingest export for USA, CA (for status SHIPPED)",
+      "retryOnFail": false,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$json.url + \"na/shipments/ingest-by-status\"}}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "status",
+              "value": "RECEIVING"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "=x-api-key",
+              "value": "={{ $json.api_key }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        448,
+        608
+      ],
+      "id": "27ff3049-6f8f-4cd2-8dc6-d9b88bad6b81",
+      "name": "Запрос ingest export for USA, CA (for status RECEIVING)",
+      "retryOnFail": false,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$json.url + \"na/shipments/ingest-by-status\"}}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "status",
+              "value": "ERROR"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "=x-api-key",
+              "value": "={{ $json.api_key }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        448,
+        784
+      ],
+      "id": "7d0420e5-3fbb-4d12-96c0-155bce72dfbf",
+      "name": "Запрос ingest export for USA, CA (for status ERROR)",
+      "retryOnFail": false,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$json.url + \"na/shipments/ingest-by-status\"}}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "status",
+              "value": "IN_TRANSIT"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "=x-api-key",
+              "value": "={{ $json.api_key }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        448,
+        960
+      ],
+      "id": "bb57da59-dc5c-4f7d-9206-c37c1c99dc81",
+      "name": "Запрос ingest export for USA, CA (for status IN_TRANSIT)",
+      "retryOnFail": false,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$json.url + \"na/shipments/ingest-by-status\"}}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "status",
+              "value": "DELIVERED"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "=x-api-key",
+              "value": "={{ $json.api_key }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        448,
+        1136
+      ],
+      "id": "b80d6337-b80f-425a-8868-efd02f56448d",
+      "name": "Запрос ingest export for USA, CA (for status DELIVERED)",
+      "retryOnFail": false,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$json.url + \"na/shipments/ingest-by-status\"}}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "status",
+              "value": "CHECKED_IN"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "=x-api-key",
+              "value": "={{ $json.api_key }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        448,
+        1296
+      ],
+      "id": "a726fc32-730b-46bc-a48c-e8a54fc4321c",
+      "name": "Запрос ingest export for USA, CA (for status CHECKED_IN)",
+      "retryOnFail": false,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ingest-updated-after",
+        "authentication": "headerAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1072,
+        256
+      ],
+      "id": "4f3cbb40-f9af-4591-ab4a-843ed2cbeb56",
+      "name": "Webhook",
+      "webhookId": "76f526e4-25ec-40c1-a85d-47d2004a09be",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "MjUxLjPsFiFjlajj",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "17ebdd38-f305-417f-b5bd-f81bcf043cc1",
+              "name": "qty_per_hour",
+              "value": 1,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -832,
+        256
+      ],
+      "id": "2bc82fd2-255c-4a13-b26c-4cb302ecde61",
+      "name": "налаштування макс кількості запусків за годину"
+    },
+    {
+      "parameters": {
+        "operation": "incr",
+        "key": "populateSync",
+        "expire": true,
+        "ttl": "={{ 900 }}"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -832,
+        624
+      ],
+      "id": "97be41d4-f6a6-4652-98eb-dc2988526c2f",
+      "name": "збільшую лічильник",
+      "credentials": {
+        "redis": {
+          "id": "V8XBEuZCyWCIpRZ6",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7c470db2-8670-4d78-a20c-0bc2801cb59f",
+              "leftValue": "={{ $json.populateSync }}",
+              "rightValue": "={{ $('налаштування макс кількості запусків за годину').item.json.qty_per_hour }}",
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -672,
+        512
+      ],
+      "id": "452ad38d-796f-4ce4-a783-b4913eb5b1f5",
+      "name": "перевірчка чи лічильник > за умову"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7c470db2-8670-4d78-a20c-0bc2801cb59f",
+              "leftValue": "={{ $json.RegistrySync }}",
+              "rightValue": "={{ $('налаштування макс кількості запусків за годину').item.json.qty_per_hour }}",
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1024,
+        528
+      ],
+      "id": "53c21344-1eca-4ab2-b80d-b1826d66b6ba",
+      "name": "перевірчка чи лічильник > за умову1"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "populateSync",
+        "key": "populateSync",
+        "keyType": "string",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -544,
+        256
+      ],
+      "id": "b2bc30a0-3b16-4f14-bebd-1f134e6aa8e1",
+      "name": "Перевіряю яке значення має лічильник",
+      "credentials": {
+        "redis": {
+          "id": "V8XBEuZCyWCIpRZ6",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "Трігер від кнопки в budibase+механізм захисту 1 запуск в 15 хвилин",
+        "height": 660,
+        "width": 960
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1136,
+        144
+      ],
+      "id": "658a1cca-7714-485a-85a2-e7d6149fdf95",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "841c4357-3462-439e-bc9f-2571df71da3c",
+              "name": "response",
+              "value": "wait 15 min",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -304,
+        496
+      ],
+      "id": "23b0bcdb-8dca-41fc-8aa5-02039696986e",
+      "name": "response wait"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$json.url + \"na/shipments/ingest-by-status\"}}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "status",
+              "value": "CLOSED"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "=x-api-key",
+              "value": "={{ $json.api_key }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        448,
+        1872
+      ],
+      "id": "28394753-52ae-49f2-828d-1ef639147ca4",
+      "name": "Запрос ingest export for USA, CA (for status CLOSED)",
+      "retryOnFail": false,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "sgGlTfnLfzXsuIiQ",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/sgGlTfnLfzXsuIiQ",
+          "cachedResultName": "Sub-Workflow  security postgre"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        160,
+        1808
+      ],
+      "id": "59b96343-fe07-4785-af8b-56de35dfb271",
+      "name": "Execute Workflow2"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$json.url + \"na/shipments/ingest-by-status\"}}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "status",
+              "value": "READY_TO_SHIP"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "=x-api-key",
+              "value": "={{ $json.api_key }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        448,
+        1472
+      ],
+      "id": "daa5d17e-03fb-4b2c-abe8-1ae00d957179",
+      "name": "Запрос ingest export for USA, CA (for status READY_TO_SHIP)",
+      "retryOnFail": false,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$json.url + \"na/shipments/ingest-by-status\"}}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "status",
+              "value": "CANCELLED"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "=x-api-key",
+              "value": "={{ $json.api_key }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        448,
+        2064
+      ],
+      "id": "d59eb589-39a8-4aab-9f63-035688d98fa1",
+      "name": "Запрос ingest export for USA, CA (for status CLOSED)1",
+      "retryOnFail": false,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$json.url + \"na/shipments/ingest-by-status\"}}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "status",
+              "value": "DELETED"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "=x-api-key",
+              "value": "={{ $json.api_key }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        448,
+        2256
+      ],
+      "id": "8f475d8c-a42f-4f5c-8515-636296f2b118",
+      "name": "Запрос ingest export for USA, CA (for status CLOSED)2",
+      "retryOnFail": false,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 5 * * 0"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -96,
+        16
+      ],
+      "id": "142034eb-d8da-4184-bb39-6e51d70eb0ac",
+      "name": "Sunday 05.00"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 */2 * * *"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -128,
+        784
+      ],
+      "id": "8ff763f6-3134-445d-808b-fe6d51bbe2d0",
+      "name": "every 2 hours"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 6 * * 0"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -112,
+        1808
+      ],
+      "id": "b60c6edc-ae08-49eb-ac41-4175b53d6d68",
+      "name": "Sunday. 06.00"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Execute Workflow": {
+      "main": [
+        [
+          {
+            "node": "Запрос ingest export for USA, CA (update after date)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow1": {
+      "main": [
+        [
+          {
+            "node": "Запрос ingest export for USA, CA (for status SHIPPED)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Запрос ingest export for USA, CA (for status RECEIVING)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Запрос ingest export for USA, CA (for status ERROR)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Запрос ingest export for USA, CA (for status IN_TRANSIT)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Запрос ingest export for USA, CA (for status DELIVERED)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Запрос ingest export for USA, CA (for status CHECKED_IN)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Запрос ingest export for USA, CA (for status READY_TO_SHIP)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "налаштування макс кількості запусків за годину",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "налаштування макс кількості запусків за годину": {
+      "main": [
+        [
+          {
+            "node": "Перевіряю яке значення має лічильник",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "збільшую лічильник": {
+      "main": [
+        [
+          {
+            "node": "перевірчка чи лічильник > за умову",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "перевірчка чи лічильник > за умову": {
+      "main": [
+        [
+          {
+            "node": "response wait",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "перевірчка чи лічильник > за умову1": {
+      "main": [
+        [
+          {
+            "node": "перевірчка чи лічильник > за умову",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "збільшую лічильник",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Перевіряю яке значення має лічильник": {
+      "main": [
+        [
+          {
+            "node": "перевірчка чи лічильник > за умову1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "response wait": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow2": {
+      "main": [
+        [
+          {
+            "node": "Запрос ingest export for USA, CA (for status WORKING)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Запрос ingest export for USA, CA (for status CLOSED)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Запрос ingest export for USA, CA (for status CLOSED)1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Запрос ingest export for USA, CA (for status CLOSED)2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sunday 05.00": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "every 2 hours": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sunday. 06.00": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "timezone": "Europe/Berlin",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "Dnv0N5dFFryWPYMw"
+  },
+  "versionId": "ededcd03-04c0-4106-9eb6-8efb7ec95838",
+  "meta": {
+    "instanceId": "730ac85b61a2f867072e936d03cc73b3080b90a6fe3cc33df7687e90a6bfd1b9"
+  },
+  "id": "53w8lV5HFzPiAFbN0q4oT",
+  "tags": []
+}
